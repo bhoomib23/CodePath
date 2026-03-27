@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — CodePath</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ── THEMES ── */
+    :root,
+    [data-theme="light"] {
+      --bg: #f5f7fa;
+      --surface: #ffffff;
+      --card: #ffffff;
+      --border: #e2e6ed;
+      --accent: #2563eb;
+      --accent2: #7c3aed;
+      --green: #059669;
+      --amber: #d97706;
+      --text: #111827;
+      --muted: #6b7280;
+      --navbar-bg: rgba(255, 255, 255, 0.93);
+      --navbar-border: #e2e6ed;
+      --shadow: rgba(0, 0, 0, 0.06);
+      --shadow-hover: rgba(0, 0, 0, 0.13);
+      --footer-bg: #1e2330;
+      --toggle-bg: #f0f2f5;
+      --toggle-border: #d1d5db;
+      --toggle-color: #374151;
+      --hero-grad: linear-gradient(135deg, #eff6ff 0%, #f5f3ff 100%);
+      --tag-bg: rgba(37, 99, 235, 0.08);
+      --tag-border: rgba(37, 99, 235, 0.2);
+      --mono: 'Space Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0d0f14;
+      --surface: #13151c;
+      --card: #1a1d27;
+      --border: #2a2d3a;
+      --accent: #4f8ef7;
+      --accent2: #a78bfa;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --text: #e4e6f0;
+      --muted: #7b7f99;
+      --navbar-bg: rgba(13, 15, 20, 0.93);
+      --navbar-border: #2a2d3a;
+      --shadow: rgba(0, 0, 0, 0.3);
+      --shadow-hover: rgba(0, 0, 0, 0.5);
+      --footer-bg: #0a0c11;
+      --toggle-bg: #2a2d3a;
+      --toggle-border: #3a3e50;
+      --toggle-color: #e4e6f0;
+      --hero-grad: linear-gradient(135deg, #111827 0%, #1a1230 100%);
+      --tag-bg: rgba(79, 142, 247, 0.1);
+      --tag-border: rgba(79, 142, 247, 0.25);
+    }
+
+    /* ── BASE ── */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.65;
+      transition: background .35s, color .35s;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    /* ── THEME BTN ── */
+    .theme-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--toggle-border);
+      background: var(--toggle-bg);
+      color: var(--toggle-color);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: .88rem;
+      transition: background .3s, transform .25s, color .3s;
+      outline: none;
+    }
+
+    .theme-btn:hover {
+      transform: rotate(18deg) scale(1.1);
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: var(--navbar-bg) !important;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--navbar-border);
+      padding: .7rem 0;
+      transition: background .35s, border-color .35s;
+    }
+
+    .navbar-brand {
+      font-family: var(--mono);
+      font-size: 1.2rem !important;
+      color: var(--text) !important;
+      letter-spacing: -.5px;
+      text-decoration: none;
+    }
+
+    .nav-link {
+      color: var(--muted) !important;
+      font-size: .875rem;
+      font-weight: 500;
+      transition: color .2s;
+      padding: .4rem .85rem !important;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent) !important;
+    }
+
+    .logo-ring {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .navbar-toggler {
+      border: 1px solid var(--border) !important;
+      padding: .3rem .55rem;
+    }
+
+    [data-theme="light"] .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%236b7280' stroke-width='2.2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+
+    [data-theme="dark"] .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%237b7f99' stroke-width='2.2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--hero-grad);
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+      transition: background .35s, border-color .35s;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(37, 99, 235, .08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    [data-theme="dark"] .page-hero::before {
+      background: radial-gradient(circle, rgba(79, 142, 247, .1) 0%, transparent 70%);
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      left: -40px;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(124, 58, 237, .07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .breadcrumb-tag {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--accent);
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      border-radius: 4px;
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 1.2rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .page-hero h1 {
+      font-family: var(--mono);
+      font-size: clamp(2rem, 4.5vw, 3.2rem);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: .9rem;
+    }
+
+    .page-hero h1 span {
+      color: var(--accent);
+    }
+
+    .page-hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 560px;
+    }
+
+    /* ── SECTION HELPERS ── */
+    .sec-eyebrow {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: .5rem;
+    }
+
+    .sec-title {
+      font-family: var(--mono);
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .9rem;
+    }
+
+    .sec-sub {
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    section {
+      padding: 5rem 0;
+    }
+
+    /* ── WHAT IS CODEPATH ── */
+    .what-section {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      transition: background .35s, border-color .35s;
+    }
+
+    .what-img-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 32px var(--shadow);
+    }
+
+    .what-img-wrap img {
+      width: 100%;
+      height: 340px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .pill-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .6rem;
+      margin-top: 1.5rem;
+    }
+
+    .pill-list li {
+      font-family: var(--mono);
+      font-size: .72rem;
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      color: var(--accent);
+      border-radius: 20px;
+      padding: 5px 14px;
+      letter-spacing: .5px;
+    }
+
+    /* ── HOW IT HELPS ── */
+    .help-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem 1.75rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      height: 100%;
+      transition: transform .3s, box-shadow .3s, background .35s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .help-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .help-card.c1::before {
+      background: linear-gradient(90deg, #2563eb, #7c3aed);
+    }
+
+    .help-card.c2::before {
+      background: linear-gradient(90deg, #059669, #2563eb);
+    }
+
+    .help-card.c3::before {
+      background: linear-gradient(90deg, #7c3aed, #db2777);
+    }
+
+    .help-card.c4::before {
+      background: linear-gradient(90deg, #d97706, #059669);
+    }
+
+    .help-card.c5::before {
+      background: linear-gradient(90deg, #2563eb, #059669);
+    }
+
+    .help-card.c6::before {
+      background: linear-gradient(90deg, #db2777, #7c3aed);
+    }
+
+    .help-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 32px var(--shadow-hover);
+    }
+
+    .help-card:hover::before {
+      opacity: 1;
+    }
+
+    .help-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 1.15rem;
+      margin-bottom: 1rem;
+    }
+
+    .hi-blue {
+      background: rgba(37, 99, 235, .1);
+      color: var(--accent);
+    }
+
+    .hi-green {
+      background: rgba(5, 150, 105, .1);
+      color: var(--green);
+    }
+
+    .hi-purple {
+      background: rgba(124, 58, 237, .1);
+      color: var(--accent2);
+    }
+
+    .hi-amber {
+      background: rgba(217, 119, 6, .1);
+      color: var(--amber);
+    }
+
+    .hi-pink {
+      background: rgba(219, 39, 119, .1);
+      color: #db2777;
+    }
+
+    .hi-sky {
+      background: rgba(14, 165, 233, .1);
+      color: #0ea5e9;
+    }
+
+    [data-theme="dark"] .hi-blue {
+      background: rgba(79, 142, 247, .15);
+    }
+
+    [data-theme="dark"] .hi-green {
+      background: rgba(52, 211, 153, .15);
+    }
+
+    [data-theme="dark"] .hi-purple {
+      background: rgba(167, 139, 250, .15);
+    }
+
+    [data-theme="dark"] .hi-amber {
+      background: rgba(251, 191, 36, .15);
+    }
+
+    [data-theme="dark"] .hi-pink {
+      background: rgba(244, 114, 182, .15);
+      color: #f472b6;
+    }
+
+    [data-theme="dark"] .hi-sky {
+      background: rgba(56, 189, 248, .15);
+      color: #38bdf8;
+    }
+
+    .help-title {
+      font-family: var(--mono);
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: .4rem;
+      color: var(--text);
+    }
+
+    .help-desc {
+      color: var(--muted);
+      font-size: .87rem;
+    }
+
+    /* ── MISSION & VISION ── */
+    .mv-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      transition: background .35s, border-color .35s;
+    }
+
+    .mv-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2.5rem 2rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: background .35s;
+      height: 100%;
+    }
+
+    .mv-label {
+      font-family: var(--mono);
+      font-size: .68rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: .75rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .mv-label.mission {
+      color: var(--accent);
+    }
+
+    .mv-label.vision {
+      color: var(--accent2);
+    }
+
+    .mv-box h4 {
+      font-family: var(--mono);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .75rem;
+    }
+
+    .mv-box p {
+      color: var(--muted);
+      font-size: .93rem;
+      line-height: 1.75;
+    }
+
+    /* ── TECH STACK ── */
+    .tech-section {}
+
+    .tech-chip {
+      display: flex;
+      align-items: center;
+      gap: .75rem;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: .9rem 1.2rem;
+      box-shadow: 0 2px 8px var(--shadow);
+      transition: transform .25s, box-shadow .25s, background .35s;
+    }
+
+    .tech-chip:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px var(--shadow-hover);
+    }
+
+    .tech-chip-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .tech-chip-name {
+      font-family: var(--mono);
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .tech-chip-role {
+      font-size: .75rem;
+      color: var(--muted);
+    }
+
+    /* ── TEAM ── */
+    .team-section {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      transition: background .35s, border-color .35s;
+    }
+
+    .team-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.2rem 1.75rem;
+      text-align: center;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: transform .3s, box-shadow .3s, background .35s;
+      height: 100%;
+    }
+
+    .team-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px var(--shadow-hover);
+    }
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 1.1rem;
+      font-family: var(--mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .avatar.av1 {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+    }
+
+    .avatar.av2 {
+      background: linear-gradient(135deg, #059669, #2563eb);
+    }
+
+    .avatar.av3 {
+      background: linear-gradient(135deg, #d97706, #db2777);
+    }
+
+    .team-name {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .25rem;
+    }
+
+    .team-role {
+      font-size: .8rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .6rem;
+      font-family: var(--mono);
+    }
+
+    .team-bio {
+      font-size: .85rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+      line-height: 1.6;
+    }
+
+    .team-links a {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      display: inline-grid;
+      place-items: center;
+      color: var(--muted);
+      font-size: .85rem;
+      transition: color .2s, border-color .2s, background .2s;
+      text-decoration: none;
+    }
+
+    .team-links a:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--tag-bg);
+    }
+
+    /* ── STATS STRIP ── */
+    .stats-strip {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e1b4b 55%, #4f46e5 100%);
+      padding: 3.5rem 0;
+    }
+
+    .strip-stat {
+      text-align: center;
+    }
+
+    .strip-num {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .strip-label {
+      font-size: .78rem;
+      color: rgba(255, 255, 255, .6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    .strip-divider {
+      border-left: 1px solid rgba(255, 255, 255, .15);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--footer-bg);
+      border-top: 1px solid rgba(255, 255, 255, .06);
+      padding: 3rem 0 2rem;
+      transition: background .35s;
+    }
+
+    .foot-brand {
+      font-family: var(--mono);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .4rem;
+    }
+
+    .foot-sub {
+      color: rgba(255, 255, 255, .42);
+      font-size: .82rem;
+    }
+
+    .foot-heading {
+      font-size: .73rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, .32);
+      margin-bottom: .9rem;
+      font-family: var(--mono);
+    }
+
+    .foot-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .foot-links li {
+      margin-bottom: .45rem;
+    }
+
+    .foot-links a {
+      color: rgba(255, 255, 255, .52);
+      font-size: .875rem;
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .foot-links a:hover {
+      color: #fff;
+    }
+
+    .foot-divider {
+      border-color: rgba(255, 255, 255, .08);
+      margin: 1.5rem 0;
+    }
+
+    .foot-copy {
+      font-size: .77rem;
+      color: rgba(255, 255, 255, .28);
+    }
+
+    .social-icon {
+      color: rgba(255, 255, 255, .38);
+      font-size: 1.15rem;
+      transition: color .2s;
+      text-decoration: none;
+    }
+
+    .social-icon:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      section {
+        padding: 3.5rem 0;
+      }
+
+      .strip-divider {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, .12);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ════ NAVBAR ════ -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <div class="logo-ring">CP</div>
+        CodePath
+      </a>
+      <div class="d-flex align-items-center gap-2 ms-auto d-lg-none">
+        <button class="theme-btn" id="themeToggleMob" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="learning-paths.html">Learning Paths</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="templates.html">Templates</a></li>
+          <li class="nav-item"><a class="nav-link" href="community.html">Community</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item d-none d-lg-flex align-items-center ms-2">
+            <button class="theme-btn" id="themeToggleDesk" aria-label="Toggle theme"><i
+                class="fas fa-moon"></i></button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ════ PAGE HERO ════ -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>We're Building the<br><span>Programmer's Paradise</span></h1>
+      <p>CodePath is a free learning platform designed specifically for BCA students — giving you structured paths,
+        curated resources, and a community to grow with.</p>
+    </div>
+  </section>
+
+  <!-- ════ WHAT IS CODEPATH ════ -->
+  <section class="what-section">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6">
+          <div class="what-img-wrap">
+            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80&auto=format&fit=crop"
+              alt="Students learning to code" />
+          </div>
+        </div>
+        <div class="col-lg-6">
+          
+          <div class="sec-title">Your All-in-One<br>Coding Companion</div>
+          <p class="sec-sub" style="max-width:100%">
+            CodePath is a free web platform built by BCA students, for BCA students. We noticed that most learners spend
+            more time hunting for resources than actually studying — so we fixed that.
+          </p>
+          <p class="sec-sub mt-3" style="max-width:100%">
+            Instead of scattered YouTube playlists and random PDFs, CodePath gives you a single place with structured
+            learning paths, a curated tech blog, free downloadable templates, and a growing community — everything you
+            need from your first "Hello World" to your final year project.
+          </p>
+          <ul class="pill-list">
+            <li><i class="fas fa-check me-1"></i> Structured Roadmaps</li>
+            <li><i class="fas fa-check me-1"></i> Free Resources</li>
+            <li><i class="fas fa-check me-1"></i> Real Projects</li>
+            <li><i class="fas fa-check me-1"></i> No Paywall</li>
+            <li><i class="fas fa-check me-1"></i> Student Community</li>
+            <li><i class="fas fa-check me-1"></i> Downloadable Templates</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ HOW IT HELPS ════ -->
+  <section>
+    <div class="container">
+      <div class="text-center mb-5">
+        
+        <div class="sec-title">Built to Solve Real Student Problems</div>
+        <p class="sec-sub mx-auto" style="max-width:520px">Every feature on CodePath was designed around problems that
+          BCA students actually face every semester.</p>
+      </div>
+      <div class="row g-4">
+
+        <div class="col-lg-4 col-md-6">
+          <div class="help-card c1">
+            <div class="help-icon hi-blue"><i class="fas fa-map-signs"></i></div>
+            <div class="help-title">No More "What to Study Next?"</div>
+            <div class="help-desc">Our learning paths give you a clear, ordered roadmap — so you always know exactly
+              what to do next without second-guessing yourself.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="help-card c2">
+            <div class="help-icon hi-green"><i class="fas fa-clock"></i></div>
+            <div class="help-title">Save Hours of Resource Hunting</div>
+            <div class="help-desc">We've already curated the best videos, docs, and articles for each topic. You study —
+              not search.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="help-card c3">
+            <div class="help-icon hi-purple"><i class="fas fa-project-diagram"></i></div>
+            <div class="help-title">Build a Real Portfolio</div>
+            <div class="help-desc">Every learning path ends with a hands-on project you can showcase to recruiters and
+              add to your GitHub profile.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="help-card c4">
+            <div class="help-icon hi-amber"><i class="fas fa-file-download"></i></div>
+            <div class="help-title">Ready-Made Templates</div>
+            <div class="help-desc">Skip the boilerplate. Download Bootstrap UI templates and Python scripts for
+              assignments, projects and hackathons instantly.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="help-card c5">
+            <div class="help-icon hi-sky"><i class="fas fa-users"></i></div>
+            <div class="help-title">Learn with a Community</div>
+            <div class="help-desc">Ask questions, share progress and collaborate with fellow BCA students who are on the
+              same journey as you.</div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="help-card c6">
+            <div class="help-icon hi-pink"><i class="fas fa-newspaper"></i></div>
+            <div class="help-title">Stay Updated with Tech</div>
+            <div class="help-desc">Our blog keeps you updated on the latest in Web Dev, Python, AI tools and industry
+              trends — in student-friendly language.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ STATS STRIP ════ -->
+  <div class="stats-strip">
+    <div class="container">
+      <div class="row g-4 text-center">
+        <div class="col-6 col-md-3 strip-stat">
+          <div class="strip-num">12+</div>
+          <div class="strip-label">Learning Paths</div>
+        </div>
+        <div class="col-6 col-md-3 strip-stat strip-divider">
+          <div class="strip-num">50+</div>
+          <div class="strip-label">Free Templates</div>
+        </div>
+        <div class="col-6 col-md-3 strip-stat strip-divider">
+          <div class="strip-num">200+</div>
+          <div class="strip-label">Blog Articles</div>
+        </div>
+        <div class="col-6 col-md-3 strip-stat strip-divider">
+          <div class="strip-num">100%</div>
+          <div class="strip-label">Free Forever</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════ MISSION & VISION ════ -->
+  <section class="mv-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        
+        <div class="sec-title">Mission & Vision</div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="mv-box">
+            <div class="mv-label mission"><i class="fas fa-bullseye"></i> Mission</div>
+            <h4>Make Quality Tech Education Free & Structured</h4>
+            <p>Our mission is to remove the barriers that stop students from learning to code — whether that's money,
+              confusion, or lack of guidance. CodePath delivers everything a BCA student needs to go from beginner to
+              job-ready, completely free and in one place.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mv-box">
+            <div class="mv-label vision"><i class="fas fa-eye"></i> Vision</div>
+            <h4>Every BCA Student Graduates Placement-Ready</h4>
+            <p>We envision a future where no student graduates feeling unprepared for the tech industry. CodePath aims
+              to be the go-to platform for every BCA student in India — a community-driven, constantly growing resource
+              that evolves with the industry.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ TECH STACK ════ -->
+  <section class="tech-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        
+        <div class="sec-title">Tech Stack Used</div>
+        <p class="sec-sub mx-auto" style="max-width:480px">CodePath is built using simple, accessible web technologies —
+          the same ones we teach in our own learning paths.</p>
+      </div>
+      <div class="row g-3 justify-content-center">
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+          <div class="tech-chip">
+            <div class="tech-chip-icon" style="color:#e34f26;">
+              <i class="fab fa-html5"></i>
+            </div>
+            <div>
+              <div class="tech-chip-name">HTML5</div>
+              <div class="tech-chip-role">Structure</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+          <div class="tech-chip">
+            <div class="tech-chip-icon" style="color:#1572b6;">
+              <i class="fab fa-css3-alt"></i>
+            </div>
+            <div>
+              <div class="tech-chip-name">CSS3</div>
+              <div class="tech-chip-role">Styling</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+          <div class="tech-chip">
+            <div class="tech-chip-icon" style="color:#f7df1e; -webkit-text-stroke: 1px #bbb;">
+              <i class="fab fa-js-square"></i>
+            </div>
+            <div>
+              <div class="tech-chip-name">JavaScript</div>
+              <div class="tech-chip-role">Interactivity</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+          <div class="tech-chip">
+            <div class="tech-chip-icon" style="color:#7952b3;">
+              <i class="fab fa-bootstrap"></i>
+            </div>
+            <div>
+              <div class="tech-chip-name">Bootstrap 5</div>
+              <div class="tech-chip-role">UI Framework</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+          <div class="tech-chip">
+            <div class="tech-chip-icon" style="color:#538e43;">
+              <i class="fab fa-font-awesome"></i>
+            </div>
+            <div>
+              <div class="tech-chip-name">Font Awesome</div>
+              <div class="tech-chip-role">Icons</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+          <div class="tech-chip">
+            <div class="tech-chip-icon" style="color:#4285f4;">
+              <i class="fab fa-google"></i>
+            </div>
+            <div>
+              <div class="tech-chip-name">Google Fonts</div>
+              <div class="tech-chip-role">Typography</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ TEAM ════ -->
+  <section class="team-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        
+        <div class="sec-title">Meet the Team</div>
+        <p class="sec-sub mx-auto" style="max-width:460px">BCA students who built CodePath as their 4th semester mini
+          project — and had a lot of fun doing it.</p>
+      </div>
+      <div class="row g-4 justify-content-center">
+
+        <div class="col-lg-4 col-md-6">
+          <div class="team-card">
+            <div class="avatar av1">AK</div>
+            <div class="team-name">Arjun Kumar</div>
+            <div class="team-role">Lead Developer</div>
+            <div class="team-bio">Handles the overall structure, routing, and design system. Loves clean code and dark
+              mode.</div>
+            <div class="team-links d-flex justify-content-center gap-2">
+              <a href="#"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="team-card">
+            <div class="avatar av2">PS</div>
+            <div class="team-name">Priya Sharma</div>
+            <div class="team-role">Content & Blog</div>
+            <div class="team-bio">Writes all the blog articles and curates the learning path resources. Python
+              enthusiast and coffee addict.</div>
+            <div class="team-links d-flex justify-content-center gap-2">
+              <a href="#"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+          <div class="team-card">
+            <div class="avatar av3">RV</div>
+            <div class="team-name">Rohit Verma</div>
+            <div class="team-role">UI / Templates</div>
+            <div class="team-bio">Designs the free templates and handles the visual side of things. Big fan of Bootstrap
+              and minimalist design.</div>
+            <div class="team-links d-flex justify-content-center gap-2">
+              <a href="#"><i class="fab fa-github"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ FOOTER ════ -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="foot-brand">CodePath</div>
+          <div class="foot-sub">Heaven for Programmers.<br>Built by BCA students, for everyone.</div>
+        </div>
+        <div class="col-md-2">
+          <div class="foot-heading">Learn</div>
+          <ul class="foot-links">
+            <li><a href="learning-paths.html">Learning Paths</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="templates.html">Templates</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <div class="foot-heading">Company</div>
+          <ul class="foot-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <div class="foot-heading">Connect</div>
+          <div class="d-flex gap-3 justify-content-md-end">
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="foot-divider" />
+      <div class="foot-copy text-center">
+        &copy; 2026 CodePath &nbsp;·&nbsp; BCA 4th Semester Mini Project &nbsp;·&nbsp; All rights reserved
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const html = document.documentElement;
+    const allToggleBtns = document.querySelectorAll('.theme-btn');
+    const savedTheme = localStorage.getItem('codepath-theme') || 'light';
+    applyTheme(savedTheme);
+    allToggleBtns.forEach(btn => btn.addEventListener('click', () => {
+      applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }));
+    function applyTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('codepath-theme', theme);
+      const isDark = theme === 'dark';
+      allToggleBtns.forEach(btn => {
+        btn.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        btn.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+      });
+    }
+  </script>
+</body>
+
+</html>

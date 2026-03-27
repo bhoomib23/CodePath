@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — CodePath</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── THEMES ── */
+    :root, [data-theme="light"] {
+      --bg: #f5f7fa; --surface: #ffffff; --card: #ffffff;
+      --border: #e2e6ed; --accent: #2563eb; --accent2: #7c3aed;
+      --green: #059669; --amber: #d97706; --red: #dc2626;
+      --text: #111827; --muted: #6b7280;
+      --navbar-bg: rgba(255,255,255,0.93); --navbar-border: #e2e6ed;
+      --shadow: rgba(0,0,0,0.06); --shadow-hover: rgba(0,0,0,0.13);
+      --footer-bg: #1e2330;
+      --toggle-bg: #f0f2f5; --toggle-border: #d1d5db; --toggle-color: #374151;
+      --hero-grad: linear-gradient(135deg,#eff6ff 0%,#f5f3ff 100%);
+      --tag-bg: rgba(37,99,235,0.08); --tag-border: rgba(37,99,235,0.2);
+      --input-bg: #f9fafb; --input-border: #d1d5db; --input-focus: #2563eb;
+      --faq-hover: #f0f4ff;
+      --mono: 'Space Mono', monospace; --sans: 'DM Sans', sans-serif;
+    }
+    [data-theme="dark"] {
+      --bg: #0d0f14; --surface: #13151c; --card: #1a1d27;
+      --border: #2a2d3a; --accent: #4f8ef7; --accent2: #a78bfa;
+      --green: #34d399; --amber: #fbbf24; --red: #f87171;
+      --text: #e4e6f0; --muted: #7b7f99;
+      --navbar-bg: rgba(13,15,20,0.93); --navbar-border: #2a2d3a;
+      --shadow: rgba(0,0,0,0.3); --shadow-hover: rgba(0,0,0,0.5);
+      --footer-bg: #0a0c11;
+      --toggle-bg: #2a2d3a; --toggle-border: #3a3e50; --toggle-color: #e4e6f0;
+      --hero-grad: linear-gradient(135deg,#111827 0%,#1a1230 100%);
+      --tag-bg: rgba(79,142,247,0.1); --tag-border: rgba(79,142,247,0.25);
+      --input-bg: #13151c; --input-border: #2a2d3a; --input-focus: #4f8ef7;
+      --faq-hover: #1f2235;
+    }
+
+    /* ── BASE ── */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); line-height: 1.65; transition: background .35s, color .35s; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+    /* ── THEME BTN ── */
+    .theme-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid var(--toggle-border); background: var(--toggle-bg);
+      color: var(--toggle-color); cursor: pointer;
+      display: grid; place-items: center; font-size: .88rem;
+      transition: background .3s, transform .25s, color .3s; outline: none;
+    }
+    .theme-btn:hover { transform: rotate(18deg) scale(1.1); }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: var(--navbar-bg) !important; backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--navbar-border); padding: .7rem 0;
+      transition: background .35s, border-color .35s;
+    }
+    .navbar-brand { font-family: var(--mono); font-size: 1.2rem !important; color: var(--text) !important; letter-spacing: -.5px; text-decoration: none; }
+    .nav-link { color: var(--muted) !important; font-size: .875rem; font-weight: 500; transition: color .2s; padding: .4rem .85rem !important; }
+    .nav-link:hover, .nav-link.active { color: var(--accent) !important; }
+    .logo-ring { width: 34px; height: 34px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 8px; display: grid; place-items: center; font-family: var(--mono); font-size: .72rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+    .navbar-toggler { border: 1px solid var(--border) !important; padding: .3rem .55rem; }
+    [data-theme="light"] .navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%236b7280' stroke-width='2.2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important; }
+    [data-theme="dark"] .navbar-toggler-icon { background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%237b7f99' stroke-width='2.2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: var(--hero-grad); border-bottom: 1px solid var(--border);
+      padding: 5rem 0 4rem; position: relative; overflow: hidden;
+      transition: background .35s, border-color .35s;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(37,99,235,.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    [data-theme="dark"] .page-hero::before { background: radial-gradient(circle, rgba(79,142,247,.1) 0%, transparent 70%); }
+    .breadcrumb-tag {
+      font-family: var(--mono); font-size: .7rem; color: var(--accent);
+      background: var(--tag-bg); border: 1px solid var(--tag-border);
+      border-radius: 4px; padding: 3px 10px; display: inline-block;
+      margin-bottom: 1.2rem; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .page-hero h1 { font-family: var(--mono); font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 700; color: var(--text); line-height: 1.2; margin-bottom: .9rem; }
+    .page-hero h1 span { color: var(--accent); }
+    .page-hero p { color: var(--muted); font-size: 1.05rem; max-width: 520px; }
+
+    /* ── SECTION HELPERS ── */
+    .sec-eyebrow { font-family: var(--mono); font-size: .7rem; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; margin-bottom: .5rem; }
+    .sec-title { font-family: var(--mono); font-size: clamp(1.45rem, 3vw, 2rem); font-weight: 700; color: var(--text); margin-bottom: .9rem; }
+    .sec-sub { color: var(--muted); font-size: .95rem; }
+
+    /* ════════════════════════════════════════
+       CONTACT MAIN SECTION
+    ════════════════════════════════════════ */
+    .contact-section { padding: 5rem 0; }
+
+    /* ── CONTACT FORM ── */
+    .form-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem 2.2rem;
+      box-shadow: 0 4px 24px var(--shadow);
+      transition: background .35s, border-color .35s;
+    }
+    .form-label {
+      font-family: var(--mono); font-size: .75rem; font-weight: 700;
+      color: var(--text); margin-bottom: .4rem; letter-spacing: .3px;
+    }
+    .form-control, .form-select {
+      background: var(--input-bg) !important; border: 1px solid var(--input-border) !important;
+      color: var(--text) !important; border-radius: 8px !important;
+      font-family: var(--sans); font-size: .9rem; padding: .65rem .9rem;
+      transition: border-color .25s, box-shadow .25s, background .35s;
+    }
+    .form-control::placeholder { color: var(--muted) !important; }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--input-focus) !important;
+      box-shadow: 0 0 0 3px rgba(37,99,235,.12) !important;
+      outline: none !important;
+    }
+    [data-theme="dark"] .form-control:focus,
+    [data-theme="dark"] .form-select:focus {
+      box-shadow: 0 0 0 3px rgba(79,142,247,.15) !important;
+    }
+    .form-select option { background: var(--card); color: var(--text); }
+    textarea.form-control { resize: vertical; min-height: 140px; }
+    .char-count { font-size: .72rem; color: var(--muted); text-align: right; margin-top: .25rem; font-family: var(--mono); }
+
+    /* radio topic selector */
+    .topic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+    .topic-option input { display: none; }
+    .topic-option label {
+      display: block; cursor: pointer;
+      font-family: var(--mono); font-size: .72rem;
+      background: var(--input-bg); border: 1px solid var(--input-border);
+      border-radius: 7px; padding: .5rem .75rem; text-align: center;
+      color: var(--muted); transition: all .2s; user-select: none;
+    }
+    .topic-option input:checked + label {
+      background: var(--tag-bg); border-color: var(--accent);
+      color: var(--accent); font-weight: 700;
+    }
+    .topic-option label:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* submit btn */
+    .btn-submit {
+      font-family: var(--mono); font-size: .85rem; font-weight: 700;
+      background: var(--accent); color: #fff !important; border: none;
+      padding: .8rem 2rem; border-radius: 8px; letter-spacing: .5px;
+      transition: all .25s; width: 100%; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: .6rem;
+    }
+    .btn-submit:hover { filter: brightness(1.1); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(37,99,235,.25); }
+    .btn-submit .spinner { display: none; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* success toast */
+    .success-toast {
+      display: none; background: rgba(5,150,105,.1); border: 1px solid rgba(5,150,105,.3);
+      border-radius: 10px; padding: 1rem 1.2rem; margin-top: 1.2rem;
+      color: var(--green); font-size: .88rem; align-items: center; gap: .75rem;
+    }
+    .success-toast.show { display: flex; }
+    [data-theme="dark"] .success-toast { background: rgba(52,211,153,.08); border-color: rgba(52,211,153,.25); }
+
+    /* ── CONTACT INFO SIDEBAR ── */
+    .info-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem 1.75rem;
+      box-shadow: 0 4px 24px var(--shadow);
+      transition: background .35s, border-color .35s;
+      height: 100%;
+    }
+    .info-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1rem 0; border-bottom: 1px solid var(--border);
+    }
+    .info-item:last-of-type { border-bottom: none; }
+    .info-icon {
+      width: 42px; height: 42px; border-radius: 9px;
+      display: grid; place-items: center; font-size: 1rem; flex-shrink: 0;
+    }
+    .ii-blue   { background: rgba(37,99,235,.1);  color: var(--accent); }
+    .ii-green  { background: rgba(5,150,105,.1);  color: var(--green); }
+    .ii-purple { background: rgba(124,58,237,.1); color: var(--accent2); }
+    [data-theme="dark"] .ii-blue   { background: rgba(79,142,247,.15); }
+    [data-theme="dark"] .ii-green  { background: rgba(52,211,153,.15); }
+    [data-theme="dark"] .ii-purple { background: rgba(167,139,250,.15); }
+    .info-label { font-family: var(--mono); font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: .2rem; }
+    .info-value { font-size: .92rem; color: var(--text); font-weight: 500; }
+    .info-value a { color: var(--accent); text-decoration: none; }
+    .info-value a:hover { text-decoration: underline; }
+
+    /* social grid */
+    .social-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; margin-top: 1.4rem; }
+    .social-btn {
+      display: flex; align-items: center; gap: .6rem;
+      padding: .6rem .9rem; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--input-bg);
+      text-decoration: none; color: var(--text);
+      font-size: .82rem; font-weight: 600;
+      transition: all .25s;
+    }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--tag-bg); transform: translateY(-2px); }
+    .social-btn i { font-size: 1rem; }
+
+    /* response time badge */
+    .response-badge {
+      background: rgba(5,150,105,.08); border: 1px solid rgba(5,150,105,.2);
+      border-radius: 10px; padding: 1rem 1.2rem;
+      display: flex; align-items: center; gap: .75rem; margin-top: 1.4rem;
+    }
+    [data-theme="dark"] .response-badge { background: rgba(52,211,153,.06); border-color: rgba(52,211,153,.18); }
+    .response-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex-shrink: 0; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+    .response-text { font-size: .82rem; color: var(--muted); }
+    .response-text strong { color: var(--green); }
+
+    /* ════════════════════════════════════════
+       FAQ SECTION
+    ════════════════════════════════════════ */
+    .faq-section {
+      padding: 5rem 0;
+      background: var(--surface); border-top: 1px solid var(--border);
+      transition: background .35s, border-color .35s;
+    }
+    .faq-item {
+      border: 1px solid var(--border); border-radius: 12px;
+      margin-bottom: .75rem; overflow: hidden;
+      transition: border-color .25s, background .35s;
+      background: var(--card);
+    }
+    .faq-item:hover { border-color: rgba(37,99,235,.3); }
+    [data-theme="dark"] .faq-item:hover { border-color: rgba(79,142,247,.3); }
+    .faq-question {
+      width: 100%; background: none; border: none;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 1.4rem; cursor: pointer; text-align: left;
+      transition: background .2s;
+    }
+    .faq-question:hover { background: var(--faq-hover); }
+    .faq-q-text { font-family: var(--mono); font-size: .88rem; font-weight: 700; color: var(--text); }
+    .faq-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--tag-bg); border: 1px solid var(--tag-border);
+      display: grid; place-items: center; flex-shrink: 0;
+      color: var(--accent); font-size: .75rem;
+      transition: transform .3s, background .25s;
+    }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--accent); color: #fff; border-color: var(--accent); }
+    .faq-answer {
+      max-height: 0; overflow: hidden;
+      transition: max-height .4s ease, padding .3s;
+      padding: 0 1.4rem;
+    }
+    .faq-item.open .faq-answer { max-height: 300px; padding-bottom: 1.3rem; }
+    .faq-answer p { color: var(--muted); font-size: .9rem; line-height: 1.75; padding-top: .2rem; border-top: 1px solid var(--border); padding-top: .9rem; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--footer-bg); border-top: 1px solid rgba(255,255,255,.06); padding: 3rem 0 2rem; transition: background .35s; }
+    .foot-brand { font-family: var(--mono); font-size: 1.05rem; font-weight: 700; color: #fff; margin-bottom: .4rem; }
+    .foot-sub { color: rgba(255,255,255,.42); font-size: .82rem; }
+    .foot-heading { font-size: .73rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,.32); margin-bottom: .9rem; font-family: var(--mono); }
+    .foot-links { list-style: none; padding: 0; }
+    .foot-links li { margin-bottom: .45rem; }
+    .foot-links a { color: rgba(255,255,255,.52); font-size: .875rem; text-decoration: none; transition: color .2s; }
+    .foot-links a:hover { color: #fff; }
+    .foot-divider { border-color: rgba(255,255,255,.08); margin: 1.5rem 0; }
+    .foot-copy { font-size: .77rem; color: rgba(255,255,255,.28); }
+    .social-icon { color: rgba(255,255,255,.38); font-size: 1.15rem; transition: color .2s; text-decoration: none; }
+    .social-icon:hover { color: #fff; }
+
+    @media (max-width: 768px) {
+      .contact-section { padding: 3rem 0; }
+      .faq-section { padding: 3rem 0; }
+      .topic-grid { grid-template-columns: 1fr; }
+      .social-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════ NAVBAR ════ -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <div class="logo-ring">CP</div>
+        CodePath
+      </a>
+      <div class="d-flex align-items-center gap-2 ms-auto d-lg-none">
+        <button class="theme-btn" id="themeToggleMob" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="learning-paths.html">Learning Paths</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="templates.html">Templates</a></li>
+          <li class="nav-item"><a class="nav-link" href="community.html">Community</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+          <li class="nav-item d-none d-lg-flex align-items-center ms-2">
+            <button class="theme-btn" id="themeToggleDesk" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ════ PAGE HERO ════ -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>We'd Love to<br><span>Hear from You</span></h1>
+      <p>Have a question, suggestion, or just want to say hi? Drop us a message and we'll get back to you as soon as possible.</p>
+    </div>
+  </section>
+
+  <!-- ════ CONTACT MAIN ════ -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="row g-4 align-items-start">
+
+        <!-- FORM -->
+        <div class="col-lg-7">
+          <div class="form-card">
+            <div class="sec-title" style="font-size:1.5rem; margin-bottom:1.5rem;">Contact Us</div>
+
+            <form id="contactForm" novalidate>
+
+              <!-- Name + Email -->
+              <div class="row g-3 mb-3">
+                <div class="col-sm-6">
+                  <label class="form-label">Your Name <span style="color:var(--red)">*</span></label>
+                  <input type="text" class="form-control" id="name" placeholder="e.g. Ravi Sharma" required />
+                  <div class="invalid-feedback" style="font-size:.78rem;">Please enter your name.</div>
+                </div>
+                <div class="col-sm-6">
+                  <label class="form-label">Email Address <span style="color:var(--red)">*</span></label>
+                  <input type="email" class="form-control" id="email" placeholder="you@example.com" required />
+                  <div class="invalid-feedback" style="font-size:.78rem;">Please enter a valid email.</div>
+                </div>
+              </div>
+
+              <!-- Topic selector -->
+              <div class="mb-3">
+                <label class="form-label">What's this about? <span style="color:var(--red)">*</span></label>
+                <div class="topic-grid">
+                  <div class="topic-option">
+                    <input type="radio" name="topic" id="t1" value="General Question" checked />
+                    <label for="t1"><i class="fas fa-circle-question me-1"></i> General Question</label>
+                  </div>
+                  <div class="topic-option">
+                    <input type="radio" name="topic" id="t2" value="Bug / Issue" />
+                    <label for="t2"><i class="fas fa-bug me-1"></i> Bug / Issue</label>
+                  </div>
+                  <div class="topic-option">
+                    <input type="radio" name="topic" id="t3" value="Contribute" />
+                    <label for="t3"><i class="fas fa-code-branch me-1"></i> Contribute</label>
+                  </div>
+                  <div class="topic-option">
+                    <input type="radio" name="topic" id="t4" value="Feedback" />
+                    <label for="t4"><i class="fas fa-star me-1"></i> Feedback</label>
+                  </div>
+                  <div class="topic-option">
+                    <input type="radio" name="topic" id="t5" value="Collaboration" />
+                    <label for="t5"><i class="fas fa-handshake me-1"></i> Collaboration</label>
+                  </div>
+                  <div class="topic-option">
+                    <input type="radio" name="topic" id="t6" value="Other" />
+                    <label for="t6"><i class="fas fa-ellipsis me-1"></i> Other</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Subject -->
+              <div class="mb-3">
+                <label class="form-label">Subject <span style="color:var(--red)">*</span></label>
+                <input type="text" class="form-control" id="subject" placeholder="Brief summary of your message" maxlength="100" required />
+                <div class="invalid-feedback" style="font-size:.78rem;">Please enter a subject.</div>
+              </div>
+
+              <!-- Message -->
+              <div class="mb-3">
+                <label class="form-label">Message <span style="color:var(--red)">*</span></label>
+                <textarea class="form-control" id="message" placeholder="Write your message here..." maxlength="1000" required></textarea>
+                <div class="char-count"><span id="charCount">0</span> / 1000</div>
+                <div class="invalid-feedback" style="font-size:.78rem;">Please write a message (min 20 characters).</div>
+              </div>
+
+              <!-- Checkbox -->
+              <div class="mb-4 d-flex align-items-center gap-2">
+                <input type="checkbox" id="agree" style="accent-color: var(--accent); width:16px; height:16px; cursor:pointer;" required />
+                <label for="agree" style="font-size:.83rem; color:var(--muted); cursor:pointer;">
+                  I agree that my message will be read by the CodePath team.
+                </label>
+              </div>
+
+              <button type="submit" class="btn-submit" id="submitBtn">
+                <span class="spinner" id="spinner"></span>
+                <i class="fas fa-paper-plane" id="sendIcon"></i>
+                <span id="btnText">Send Message</span>
+              </button>
+
+              <!-- Success toast -->
+              <div class="success-toast" id="successToast">
+                <i class="fas fa-circle-check fa-lg"></i>
+                <div>
+                  <strong>Message sent!</strong> Thanks for reaching out. We'll reply within 24 hours.
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- SIDEBAR -->
+        <div class="col-lg-5">
+
+          <!-- Info card -->
+          <div class="info-card mb-4">
+
+            <div class="info-item">
+              <div class="info-icon ii-blue"><i class="fas fa-envelope"></i></div>
+              <div>
+                <div class="info-label">Email</div>
+                <div class="info-value"><a href="mailto:hello@codepath.dev">hello@codepath.dev</a></div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon ii-green"><i class="fas fa-graduation-cap"></i></div>
+              <div>
+                <div class="info-label">Project</div>
+                <div class="info-value">BCA 4th Semester Mini Project</div>
+              </div>
+            </div>
+
+            <div class="info-item">
+              <div class="info-icon ii-purple"><i class="fas fa-code"></i></div>
+              <div>
+                <div class="info-label">Open Source</div>
+                <div class="info-value"><a href="https://github.com/bhoomib23/CodePath">View on GitHub</a></div>
+              </div>
+            </div>
+
+            <!-- Response time -->
+            <div class="response-badge">
+              <div class="response-dot"></div>
+              <div class="response-text">We typically respond within <strong>24 hours</strong> on weekdays.</div>
+            </div>
+
+            <!-- Social links -->
+            <div class="social-grid">
+              <a href="#" class="social-btn"><i class="fab fa-github"></i> GitHub</a>
+              <a href="#" class="social-btn"><i class="fab fa-twitter" style="color:#1da1f2;"></i> Twitter</a>
+              <a href="#" class="social-btn"><i class="fab fa-linkedin" style="color:#0a66c2;"></i> LinkedIn</a>
+              <a href="#" class="social-btn"><i class="fab fa-instagram" style="color:#e1306c;"></i> Instagram</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ FAQ SECTION ════ -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="sec-title">Frequently Asked Questions</div>
+        <p class="sec-sub mx-auto" style="max-width:480px">Quick answers to the most common questions we get from students.</p>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+
+          <div class="faq-item open">
+            <button class="faq-question">
+              <span class="faq-q-text">Is CodePath completely free?</span>
+              <div class="faq-icon"><i class="fas fa-plus"></i></div>
+            </button>
+            <div class="faq-answer">
+              <p>Yes, 100% free — no hidden fees, no premium plans, no credit card required. Every learning path, blog article, template, and community feature is completely free for all students, forever.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span class="faq-q-text">Who is CodePath built for?</span>
+              <div class="faq-icon"><i class="fas fa-plus"></i></div>
+            </button>
+            <div class="faq-answer">
+              <p>CodePath is built primarily for BCA (Bachelor of Computer Applications) students, but anyone who wants to learn web development, Python, DSA, or other programming skills is welcome. The content is designed to be beginner-friendly and structured.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span class="faq-q-text">Can I contribute to CodePath?</span>
+              <div class="faq-icon"><i class="fas fa-plus"></i></div>
+            </button>
+            <div class="faq-answer">
+              <p>Absolutely! We welcome contributions — whether it's writing a blog article, suggesting a learning resource, reporting a bug, or helping improve the design. Use the contact form above and select "Contribute" as the topic, or open an issue on our GitHub.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span class="faq-q-text">How long does it take to complete a learning path?</span>
+              <div class="faq-icon"><i class="fas fa-plus"></i></div>
+            </button>
+            <div class="faq-answer">
+              <p>It depends on the path and how much time you can dedicate each day. Most paths are designed to be completed in 4–12 weeks with consistent daily practice of 1–2 hours. Each path clearly shows an estimated completion time at the start.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span class="faq-q-text">Are the templates free to use in my own projects?</span>
+              <div class="faq-icon"><i class="fas fa-plus"></i></div>
+            </button>
+            <div class="faq-answer">
+              <p>Yes! All templates on CodePath are free to download and use in your personal projects, college assignments, and even portfolio pieces. You don't need to credit CodePath, but we'd love a shoutout if you do!</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question">
+              <span class="faq-q-text">I found a bug or broken link. How do I report it?</span>
+              <div class="faq-icon"><i class="fas fa-plus"></i></div>
+            </button>
+            <div class="faq-answer">
+              <p>Use the contact form above and choose "Bug / Issue" as the topic. Describe what you found, which page it's on, and what browser you're using. We'll fix it as soon as possible — usually within 24–48 hours.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ FOOTER ════ -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="foot-brand">CodePath</div>
+          <div class="foot-sub">Heaven for Programmers.<br>Built by BCA students, for everyone.</div>
+        </div>
+        <div class="col-md-2">
+          <div class="foot-heading">Learn</div>
+          <ul class="foot-links">
+            <li><a href="learning-paths.html">Learning Paths</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="templates.html">Templates</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <div class="foot-heading">Company</div>
+          <ul class="foot-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="community.html">Community</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <div class="foot-heading">Connect</div>
+          <div class="d-flex gap-3 justify-content-md-end">
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="foot-divider" />
+      <div class="foot-copy text-center">
+        &copy; 2026 CodePath &nbsp;·&nbsp; BCA 4th Semester Mini Project &nbsp;·&nbsp; All rights reserved
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // ── THEME TOGGLE ──
+    const html = document.documentElement;
+    const allToggleBtns = document.querySelectorAll('.theme-btn');
+    const savedTheme = localStorage.getItem('codepath-theme') || 'light';
+    applyTheme(savedTheme);
+    allToggleBtns.forEach(btn => btn.addEventListener('click', () => {
+      applyTheme(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    }));
+    function applyTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('codepath-theme', theme);
+      const isDark = theme === 'dark';
+      allToggleBtns.forEach(btn => {
+        btn.querySelector('i').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        btn.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+      });
+    }
+
+    // ── CHAR COUNTER ──
+    const msgArea = document.getElementById('message');
+    const charCount = document.getElementById('charCount');
+    msgArea.addEventListener('input', () => {
+      charCount.textContent = msgArea.value.length;
+    });
+
+    // ── FORM SUBMIT ──
+    const form = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const spinner = document.getElementById('spinner');
+    const sendIcon = document.getElementById('sendIcon');
+    const btnText = document.getElementById('btnText');
+    const successToast = document.getElementById('successToast');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Basic validation
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const agree = document.getElementById('agree').checked;
+      const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+      let valid = true;
+      [['name', name.length < 2], ['email', !emailValid], ['subject', subject.length < 3], ['message', message.length < 20]].forEach(([id, err]) => {
+        const el = document.getElementById(id);
+        el.classList.toggle('is-invalid', err);
+        if (err) valid = false;
+      });
+      if (!agree || !valid) return;
+
+      // Simulate sending
+      submitBtn.disabled = true;
+      spinner.style.display = 'block';
+      sendIcon.style.display = 'none';
+      btnText.textContent = 'Sending...';
+
+      setTimeout(() => {
+        submitBtn.disabled = false;
+        spinner.style.display = 'none';
+        sendIcon.style.display = 'block';
+        btnText.textContent = 'Send Message';
+        successToast.classList.add('show');
+        form.reset();
+        charCount.textContent = '0';
+        setTimeout(() => successToast.classList.remove('show'), 6000);
+      }, 1800);
+    });
+
+    // ── FAQ ACCORDION ──
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        // close all
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        // toggle clicked
+        if (!isOpen) item.classList.add('open');
+      });
+    });
+  </script>
+</body>
+</html>
