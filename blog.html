@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — CodePath</title>
+  <link rel="icon" type="image/x-icon" href="terminal.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root,[data-theme="light"]{
+      --bg:#f5f7fa;--surface:#fff;--card:#fff;--border:#e2e6ed;
+      --accent:#2563eb;--accent2:#7c3aed;--green:#059669;--amber:#d97706;
+      --text:#111827;--muted:#6b7280;
+      --navbar-bg:rgba(255,255,255,0.93);--navbar-border:#e2e6ed;
+      --shadow:rgba(0,0,0,0.06);--shadow-hover:rgba(0,0,0,0.13);
+      --footer-bg:#1e2330;--toggle-bg:#f0f2f5;--toggle-border:#d1d5db;--toggle-color:#374151;
+      --mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif;
+    }
+    [data-theme="dark"]{
+      --bg:#0d0f14;--surface:#13151c;--card:#1a1d27;--border:#2a2d3a;
+      --accent:#4f8ef7;--accent2:#a78bfa;--green:#34d399;--amber:#fbbf24;
+      --text:#e4e6f0;--muted:#7b7f99;
+      --navbar-bg:rgba(13,15,20,0.93);--navbar-border:#2a2d3a;
+      --shadow:rgba(0,0,0,0.3);--shadow-hover:rgba(0,0,0,0.5);
+      --footer-bg:#0a0c11;--toggle-bg:#2a2d3a;--toggle-border:#3a3e50;--toggle-color:#e4e6f0;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    html{scroll-behavior:smooth;}
+    body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65;transition:background .35s,color .35s;}
+    ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+    /* ── NAVBAR ── */
+    .navbar{background:var(--navbar-bg)!important;backdrop-filter:blur(14px);border-bottom:1px solid var(--navbar-border);padding:.7rem 0;transition:background .35s,border-color .35s;}
+    .navbar-brand{font-family:var(--mono);font-size:1.2rem!important;color:var(--text)!important;letter-spacing:-.5px;text-decoration:none;}
+    .nav-link{color:var(--muted)!important;font-size:.875rem;font-weight:500;transition:color .2s;padding:.4rem .85rem!important;}
+    .nav-link:hover,.nav-link.active{color:var(--accent)!important;}
+    .btn-nav-outline{font-family:var(--mono);font-size:.82rem;background:transparent;color:var(--text)!important;border:1px solid var(--border);padding:.5rem 1.25rem;border-radius:6px;transition:all .25s;text-decoration:none;display:block;text-align:center;}
+    .btn-nav-outline:hover{border-color:var(--accent);color:var(--accent)!important;}
+    .btn-nav{font-family:var(--mono);font-size:.82rem;background:var(--accent);color:#fff!important;border:1px solid var(--accent);padding:.5rem 1.25rem;border-radius:6px;transition:all .25s;text-decoration:none;display:block;text-align:center;}
+    .btn-nav:hover{background:var(--accent2);border-color:var(--accent2);}
+    .logo-ring{width:34px;height:34px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:8px;display:grid;place-items:center;font-family:var(--mono);font-size:.72rem;font-weight:700;color:#fff;flex-shrink:0;}
+    .theme-btn{width:38px;height:38px;border-radius:50%;border:1px solid var(--toggle-border);background:var(--toggle-bg);color:var(--toggle-color);cursor:pointer;display:grid;place-items:center;font-size:.88rem;transition:background .3s,border-color .3s,transform .25s,color .3s;flex-shrink:0;outline:none;}
+    .theme-btn:hover{transform:rotate(18deg) scale(1.1);}
+    .navbar-toggler{border:1px solid var(--border)!important;padding:.3rem .55rem;}
+    [data-theme="light"] .navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%236b7280' stroke-width='2.2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")!important;}
+    [data-theme="dark"] .navbar-toggler-icon{background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%237b7f99' stroke-width='2.2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e")!important;}
+    @media(min-width:992px){.btn-nav-outline,.btn-nav{display:inline-block;}}
+
+    /* ── PAGE HERO ── */
+    .page-hero{background:linear-gradient(135deg,#0f172a 0%,#1e1b4b 50%,#0f172a 100%);padding:5rem 0 4rem;position:relative;overflow:hidden;}
+    .page-hero::before{content:'';position:absolute;top:-100px;right:-100px;width:420px;height:420px;background:radial-gradient(circle,rgba(79,142,247,.13) 0%,transparent 70%);pointer-events:none;}
+    .page-hero::after{content:'';position:absolute;bottom:-80px;left:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(167,139,250,.1) 0%,transparent 70%);pointer-events:none;}
+    .hero-tag{font-family:var(--mono);font-size:.7rem;color:#93c5fd;background:rgba(59,130,246,.18);border:1px solid rgba(59,130,246,.35);border-radius:4px;padding:3px 10px;display:inline-block;margin-bottom:1rem;letter-spacing:1px;text-transform:uppercase;}
+    .page-hero h1{font-family:var(--mono);font-size:clamp(2rem,5vw,3rem);font-weight:700;color:#fff;margin-bottom:.8rem;line-height:1.2;}
+    .page-hero h1 span{color:#60a5fa;}
+    .page-hero p{color:rgba(255,255,255,.65);font-size:1rem;max-width:540px;}
+
+    /* ── FILTER BAR ── */
+    .filter-wrap{background:var(--surface);border-bottom:1px solid var(--border);padding:.85rem 0;position:sticky;top:62px;z-index:100;transition:background .35s,border-color .35s;}
+    .search-box{background:var(--toggle-bg);border:1px solid var(--toggle-border);color:var(--text);border-radius:20px;padding:.4rem 1rem .4rem 2.4rem;font-size:.85rem;outline:none;transition:all .3s;width:200px;font-family:var(--sans);}
+    .search-box:focus{background:var(--surface);border-color:var(--accent);box-shadow:0 0 0 3px rgba(37,99,235,.15);width:240px;}
+    .search-box::placeholder{color:var(--muted);}
+    .filter-btn{font-family:var(--mono);font-size:.75rem;background:transparent;border:1px solid var(--border);color:var(--muted);padding:.4rem 1.1rem;border-radius:20px;cursor:pointer;transition:all .25s;white-space:nowrap;outline:none;}
+    .filter-btn:hover,.filter-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+    /* ── TAGS ── */
+    .art-tag{font-family:var(--mono);font-size:.67rem;text-transform:uppercase;letter-spacing:.8px;padding:3px 10px;border-radius:4px;display:inline-block;margin-bottom:.75rem;}
+    .tag-webdev{background:rgba(37,99,235,.1);color:var(--accent);border:1px solid rgba(37,99,235,.2);}
+    .tag-css{background:rgba(124,58,237,.1);color:var(--accent2);border:1px solid rgba(124,58,237,.2);}
+    .tag-js{background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(217,119,6,.2);}
+    .tag-tools{background:rgba(6,182,212,.1);color:#06b6d4;border:1px solid rgba(6,182,212,.2);}
+    .tag-career{background:rgba(236,72,153,.1);color:#ec4899;border:1px solid rgba(236,72,153,.2);}
+    .tag-bootstrap{background:rgba(124,58,237,.1);color:var(--accent2);border:1px solid rgba(124,58,237,.2);}
+    [data-theme="dark"] .tag-webdev{background:rgba(79,142,247,.12);border-color:rgba(79,142,247,.25);}
+    [data-theme="dark"] .tag-css{background:rgba(167,139,250,.12);border-color:rgba(167,139,250,.25);}
+    [data-theme="dark"] .tag-js{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.25);}
+    [data-theme="dark"] .tag-tools{background:rgba(6,182,212,.1);border-color:rgba(6,182,212,.25);}
+    [data-theme="dark"] .tag-career{background:rgba(236,72,153,.1);border-color:rgba(236,72,153,.25);}
+    [data-theme="dark"] .tag-bootstrap{background:rgba(167,139,250,.12);border-color:rgba(167,139,250,.25);}
+
+    /* ── FEATURED ── */
+    .section-blog{padding:4rem 0 5rem;}
+    .featured-card{background:var(--card);border:1px solid var(--border);border-radius:18px;overflow:hidden;box-shadow:0 4px 24px var(--shadow);transition:transform .3s,box-shadow .3s,background .35s;margin-bottom:3rem;}
+    .featured-card:hover{transform:translateY(-4px);box-shadow:0 20px 50px var(--shadow-hover);}
+    .featured-img{width:100%;height:300px;object-fit:cover;display:block;}
+    .featured-body{padding:2rem 2.2rem;}
+    .featured-label{font-family:var(--mono);font-size:.65rem;color:var(--amber);background:rgba(217,119,6,.1);border:1px solid rgba(217,119,6,.2);padding:2px 9px;border-radius:4px;letter-spacing:.5px;margin-right:.6rem;}
+    [data-theme="dark"] .featured-label{background:rgba(251,191,36,.1);border-color:rgba(251,191,36,.25);}
+    .featured-title{font-family:var(--mono);font-size:clamp(1.2rem,3vw,1.65rem);font-weight:700;color:var(--text);margin-bottom:.65rem;line-height:1.3;}
+    .featured-excerpt{font-size:.93rem;color:var(--muted);margin-bottom:1.3rem;max-width:620px;line-height:1.65;}
+    .art-meta{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;font-size:.8rem;color:var(--muted);}
+    .art-meta i{color:var(--accent);margin-right:.28rem;}
+
+    /* ── BLOG GRID CARDS ── */
+    .blog-card{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;height:100%;box-shadow:0 2px 12px var(--shadow);transition:transform .3s,box-shadow .3s,border-color .3s,background .35s;display:flex;flex-direction:column;}
+    .blog-card:hover{transform:translateY(-5px);box-shadow:0 16px 36px var(--shadow-hover);border-color:rgba(79,142,247,.3);}
+    .blog-thumb{width:100%;height:175px;object-fit:cover;display:block;}
+    .blog-body{padding:1.35rem;flex:1;display:flex;flex-direction:column;}
+    .blog-title{font-family:var(--mono);font-weight:700;font-size:.9rem;color:var(--text);margin-bottom:.45rem;line-height:1.45;}
+    .blog-excerpt{font-size:.83rem;color:var(--muted);margin-bottom:1rem;flex:1;line-height:1.6;}
+    .blog-footer-row{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:.5rem;border-top:1px solid var(--border);}
+    .blog-meta-sm{font-size:.75rem;color:var(--muted);}
+    .blog-meta-sm i{color:var(--accent);margin-right:.22rem;}
+
+    /* ── READ BUTTONS ── */
+    .btn-read{font-family:var(--mono);font-size:.76rem;background:var(--accent);color:#fff;border:none;padding:.5rem 1.1rem;border-radius:6px;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.4rem;white-space:nowrap;}
+    .btn-read:hover{background:var(--accent2);transform:translateY(-1px);}
+    .btn-read-sm{font-family:var(--mono);font-size:.72rem;background:transparent;color:var(--accent);border:1px solid var(--accent);padding:.35rem .85rem;border-radius:6px;cursor:pointer;transition:all .25s;display:inline-flex;align-items:center;gap:.35rem;white-space:nowrap;}
+    .btn-read-sm:hover{background:var(--accent);color:#fff;}
+
+    /* ── NO RESULTS ── */
+    .no-results{text-align:center;padding:4rem 0;display:none;}
+    .no-results i{font-size:2.5rem;color:var(--border);margin-bottom:1rem;display:block;}
+    .no-results p{color:var(--muted);}
+
+    /* ── ARTICLE DRAWER ── */
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);backdrop-filter:blur(5px);z-index:1050;opacity:0;pointer-events:none;transition:opacity .3s;}
+    .overlay.open{opacity:1;pointer-events:all;}
+    .drawer{position:fixed;top:0;right:0;width:min(740px,100vw);height:100vh;background:var(--surface);border-left:1px solid var(--border);z-index:1060;transform:translateX(110%);transition:transform .38s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column;}
+    .drawer.open{transform:translateX(0);}
+
+    /* drawer header */
+    .dw-header{padding:1.2rem 1.8rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--surface);z-index:5;display:flex;align-items:center;justify-content:space-between;}
+    .dw-close{width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:var(--toggle-bg);color:var(--text);cursor:pointer;display:grid;place-items:center;font-size:.9rem;outline:none;transition:background .2s,transform .2s;}
+    .dw-close:hover{background:var(--border);transform:rotate(90deg);}
+    .dw-brand{font-family:var(--mono);font-size:.75rem;color:var(--muted);}
+
+    /* drawer hero image */
+    .dw-img{width:100%;height:260px;object-fit:cover;display:block;}
+
+    /* drawer article meta */
+    .dw-meta-wrap{padding:1.8rem 2rem 0;}
+    .dw-title{font-family:var(--mono);font-size:clamp(1.15rem,2.5vw,1.55rem);font-weight:700;color:var(--text);margin:.7rem 0 .8rem;line-height:1.3;}
+    .dw-meta{display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.8rem;color:var(--muted);padding-bottom:1.4rem;border-bottom:1px solid var(--border);}
+    .dw-meta i{color:var(--accent);margin-right:.28rem;}
+
+    /* article prose */
+    .prose{padding:1.6rem 2rem 3rem;font-size:.93rem;color:var(--text);line-height:1.85;}
+    .prose h2{font-family:var(--mono);font-size:1.05rem;font-weight:700;color:var(--text);margin:2rem 0 .65rem;padding-bottom:.4rem;border-bottom:1px solid var(--border);}
+    .prose h3{font-family:var(--mono);font-size:.92rem;font-weight:700;color:var(--text);margin:1.5rem 0 .5rem;}
+    .prose p{color:var(--muted);margin-bottom:1rem;}
+    .prose p strong{color:var(--text);}
+    .prose ul,.prose ol{color:var(--muted);margin:0 0 1rem 1.4rem;}
+    .prose li{margin-bottom:.4rem;}
+    .prose code{font-family:var(--mono);font-size:.8rem;background:var(--card);border:1px solid var(--border);padding:2px 7px;border-radius:4px;color:var(--accent);}
+    .prose pre{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.2rem 1.4rem;margin:1rem 0 1.4rem;overflow-x:auto;}
+    .prose pre code{background:transparent;border:none;padding:0;color:var(--green);font-size:.81rem;line-height:1.75;}
+    .prose blockquote{border-left:3px solid var(--accent);padding:.7rem 1.2rem;margin:1.2rem 0;background:var(--card);border-radius:0 8px 8px 0;}
+    .prose blockquote p{color:var(--muted);margin:0;font-style:italic;}
+    .prose .tip{background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.18);border-radius:10px;padding:1rem 1.2rem;margin:1.2rem 0;}
+    [data-theme="dark"] .prose .tip{background:rgba(79,142,247,.08);border-color:rgba(79,142,247,.2);}
+    .prose .tip strong{color:var(--accent);}
+    .prose .warn{background:rgba(217,119,6,.07);border:1px solid rgba(217,119,6,.18);border-radius:10px;padding:1rem 1.2rem;margin:1.2rem 0;}
+    [data-theme="dark"] .prose .warn{background:rgba(251,191,36,.07);border-color:rgba(251,191,36,.2);}
+    .prose .warn strong{color:var(--amber);}
+
+    /* ── CTA ── */
+    .section-cta{padding:5rem 0;}
+    .cta-box{background:linear-gradient(135deg,#1d4ed8 0%,#1e1b4b 55%,#4f46e5 100%);border:1px solid rgba(99,102,241,.3);border-radius:18px;padding:4rem 3rem;text-align:center;position:relative;overflow:hidden;}
+    .cta-box::before{content:'';position:absolute;top:-80px;left:50%;transform:translateX(-50%);width:320px;height:320px;background:radial-gradient(circle,rgba(99,102,241,.2) 0%,transparent 70%);pointer-events:none;}
+    .cta-box h3{font-family:var(--mono);font-size:clamp(1.45rem,3vw,2rem);font-weight:700;color:#fff;margin-bottom:.7rem;}
+    .cta-box p{color:rgba(255,255,255,.62);font-size:1rem;margin-bottom:2rem;}
+    .btn-cta{font-family:var(--mono);font-size:.85rem;background:#fff;color:#1e3a8a!important;border:none;padding:.8rem 2.2rem;border-radius:6px;letter-spacing:.5px;transition:all .25s;text-decoration:none;display:inline-block;font-weight:700;}
+    .btn-cta:hover{background:#eff6ff;transform:translateY(-2px);}
+
+    /* ── FOOTER ── */
+    footer{background:var(--footer-bg);border-top:1px solid rgba(255,255,255,.06);padding:3rem 0 2rem;}
+    .foot-brand{font-family:var(--mono);font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.4rem;}
+    .foot-sub{color:rgba(255,255,255,.42);font-size:.82rem;}
+    .foot-heading{font-size:.73rem;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.32);margin-bottom:.9rem;font-family:var(--mono);}
+    .foot-links{list-style:none;padding:0;}
+    .foot-links li{margin-bottom:.45rem;}
+    .foot-links a{color:rgba(255,255,255,.52);font-size:.875rem;text-decoration:none;transition:color .2s;}
+    .foot-links a:hover{color:#fff;}
+    .foot-divider{border-color:rgba(255,255,255,.08);margin:1.5rem 0;}
+    .foot-copy{font-size:.77rem;color:rgba(255,255,255,.28);}
+    .social-icon{color:rgba(255,255,255,.38);font-size:1.15rem;transition:color .2s;text-decoration:none;}
+    .social-icon:hover{color:#fff;}
+
+    @media(max-width:768px){
+      .drawer{width:100vw;}
+      .dw-img{height:190px;}
+      .featured-img{height:210px;}
+      .cta-box{padding:2.5rem 1.5rem;}
+      .search-box,.search-box:focus{width:150px;}
+      .dw-meta-wrap,.prose{padding-left:1.2rem;padding-right:1.2rem;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════ NAVBAR ═══════════ -->
+<nav class="navbar navbar-expand-lg sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+      <div class="logo-ring">CP</div>CodePath
+    </a>
+    <div class="d-flex align-items-center gap-2 ms-auto d-lg-none">
+      <button class="theme-btn" id="themeToggleMob" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="learning-paths.html">Learning Paths</a></li>
+        <li class="nav-item"><a class="nav-link active" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="daily-quiz.html">Daily Quiz</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item d-none d-lg-flex align-items-center ms-2">
+          <button class="theme-btn" id="themeToggleDesk" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════ PAGE HERO ═══════════ -->
+<section class="page-hero">
+  <div class="container position-relative" style="z-index:1;">
+    <h1>The CodePath <span>Blog</span></h1>
+    <p>Fresh articles on HTML, CSS, JavaScript, Bootstrap, Git, and web dev careers — written in plain language that actually makes sense.</p>
+  </div>
+</section>
+
+<!-- ═══════════ FILTER BAR ═══════════ -->
+<div class="filter-wrap">
+  <div class="container">
+    <div class="d-flex align-items-center gap-2 overflow-auto pb-1" style="scrollbar-width:none;">
+      <div class="position-relative flex-shrink-0">
+        <i class="fas fa-search position-absolute top-50 translate-middle-y" style="left:12px;font-size:.78rem;color:var(--muted);pointer-events:none;z-index:1;"></i>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search articles…" autocomplete="off">
+      </div>
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="webdev">Web Dev</button>
+      <button class="filter-btn" data-filter="css">CSS</button>
+      <button class="filter-btn" data-filter="js">JavaScript</button>
+      <button class="filter-btn" data-filter="bootstrap">Bootstrap</button>
+      <button class="filter-btn" data-filter="tools">Tools</button>
+      <button class="filter-btn" data-filter="career">Career</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ BLOG SECTION ═══════════ -->
+<section class="section-blog">
+  <div class="container">
+
+    <!-- FEATURED -->
+    <div id="featuredWrap">
+      <div class="featured-card" id="featuredCard" data-id="bs5-guide">
+        <img class="featured-img" src="https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=1200&q=80&auto=format&fit=crop" alt="Bootstrap 5 Guide">
+        <div class="featured-body">
+          <div class="mb-1">
+            <span class="featured-label">Featured</span>
+            <span class="art-tag tag-bootstrap">Bootstrap</span>
+          </div>
+          <div class="featured-title">Getting Started with Bootstrap 5.3 — A Complete Beginner Guide</div>
+          <div class="featured-excerpt">Bootstrap is the world's most popular CSS framework. This guide walks through everything from CDN setup to building your first responsive layout — grid system, components, and utility classes explained step by step.</div>
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mt-3">
+            <div class="art-meta">
+              <span><i class="fas fa-user"></i>Priya Sharma</span>
+              <span><i class="fas fa-calendar"></i>March 2026</span>
+              <span><i class="fas fa-clock"></i>8 min read</span>
+            </div>
+            <button class="btn-read" data-id="bs5-guide">Read Article <i class="fas fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRID -->
+    <div class="row g-4" id="blogGrid">
+
+      <div class="col-lg-4 col-md-6 blog-item" data-cat="js" data-keywords="fetch api javascript http requests json">
+        <div class="blog-card">
+          <img class="blog-thumb" src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=75&auto=format&fit=crop" alt="Fetch API">
+          <div class="blog-body">
+            <span class="art-tag tag-js">JavaScript</span>
+            <div class="blog-title">The Fetch API Explained — No jQuery Needed</div>
+            <div class="blog-excerpt">Learn to make HTTP requests in modern JS using the built-in Fetch API. GET, POST, JSON handling, and error states — with real copy-paste examples.</div>
+            <div class="blog-footer-row">
+              <div class="blog-meta-sm"><i class="fas fa-clock"></i>6 min · Feb 2026</div>
+              <button class="btn-read-sm" data-id="fetch-api">Read <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 blog-item" data-cat="css" data-keywords="flexbox css layout justify align flex">
+        <div class="blog-card">
+          <img class="blog-thumb" src="https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=600&q=75&auto=format&fit=crop" alt="Flexbox">
+          <div class="blog-body">
+            <span class="art-tag tag-css">CSS</span>
+            <div class="blog-title">CSS Flexbox: The Only Guide You'll Ever Need</div>
+            <div class="blog-excerpt">A visual breakdown of every Flexbox property — justify-content, align-items, flex-wrap, flex-grow — with real-world examples and the classic centering trick.</div>
+            <div class="blog-footer-row">
+              <div class="blog-meta-sm"><i class="fas fa-clock"></i>7 min · Feb 2026</div>
+              <button class="btn-read-sm" data-id="flexbox-guide">Read <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 blog-item" data-cat="tools" data-keywords="git github version control branches pull request commit">
+        <div class="blog-card">
+          <img class="blog-thumb" src="https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=600&q=75&auto=format&fit=crop" alt="Git GitHub">
+          <div class="blog-body">
+            <span class="art-tag tag-tools">Tools</span>
+            <div class="blog-title">Git & GitHub for Beginners — From Zero to First Pull Request</div>
+            <div class="blog-excerpt">Install Git, make your first commit, push to GitHub, branch, and open a PR. Everything in one article — no prior knowledge needed.</div>
+            <div class="blog-footer-row">
+              <div class="blog-meta-sm"><i class="fas fa-clock"></i>9 min · Jan 2026</div>
+              <button class="btn-read-sm" data-id="git-guide">Read <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 blog-item" data-cat="webdev" data-keywords="responsive mobile first design media queries html css">
+        <div class="blog-card">
+          <img class="blog-thumb" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=75&auto=format&fit=crop" alt="Responsive Design">
+          <div class="blog-body">
+            <span class="art-tag tag-webdev">Web Dev</span>
+            <div class="blog-title">Mobile-First Design: Why You Should Always Start Small</div>
+            <div class="blog-excerpt">Most beginners build desktop-first. Here's why flipping that approach leads to better, faster, more maintainable websites — with a practical CSS comparison.</div>
+            <div class="blog-footer-row">
+              <div class="blog-meta-sm"><i class="fas fa-clock"></i>5 min · Jan 2026</div>
+              <button class="btn-read-sm" data-id="responsive-design">Read <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 blog-item" data-cat="js" data-keywords="async await promises javascript asynchronous">
+        <div class="blog-card">
+          <img class="blog-thumb" src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=600&q=75&auto=format&fit=crop" alt="Async Await">
+          <div class="blog-body">
+            <span class="art-tag tag-js">JavaScript</span>
+            <div class="blog-title">Async/Await Explained Simply — Stop Being Afraid of Async JS</div>
+            <div class="blog-excerpt">Callbacks, Promises, async/await — explained with the simplest possible examples. Includes Promise.all for parallel requests and proper error handling.</div>
+            <div class="blog-footer-row">
+              <div class="blog-meta-sm"><i class="fas fa-clock"></i>7 min · Dec 2025</div>
+              <button class="btn-read-sm" data-id="async-await">Read <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 blog-item" data-cat="career" data-keywords="portfolio bca student jobs placement github recruiter">
+        <div class="blog-card">
+          <img class="blog-thumb" src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=600&q=75&auto=format&fit=crop" alt="Portfolio Tips">
+          <div class="blog-body">
+            <span class="art-tag tag-career">Career</span>
+            <div class="blog-title">5 Things Every BCA Student Must Have in Their Portfolio</div>
+            <div class="blog-excerpt">Recruiters spend 30 seconds on your portfolio. Here's exactly what should be there — live URL, real projects, clean GitHub, specific skills, and a working contact.</div>
+            <div class="blog-footer-row">
+              <div class="blog-meta-sm"><i class="fas fa-clock"></i>5 min · Dec 2025</div>
+              <button class="btn-read-sm" data-id="portfolio-tips">Read <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 blog-item" data-cat="css" data-keywords="css grid layout rows columns auto-fit responsive">
+        <div class="blog-card">
+          <img class="blog-thumb" src="https://images.unsplash.com/photo-1547658719-da2b51169166?w=600&q=75&auto=format&fit=crop" alt="CSS Grid">
+          <div class="blog-body">
+            <span class="art-tag tag-css">CSS</span>
+            <div class="blog-title">CSS Grid Layout — Build Any Layout in 10 Minutes</div>
+            <div class="blog-excerpt">grid-template-columns, fr unit, auto-fit + minmax, named areas — the full CSS Grid toolkit with hands-on examples you can copy directly into your projects.</div>
+            <div class="blog-footer-row">
+              <div class="blog-meta-sm"><i class="fas fa-clock"></i>8 min · Nov 2025</div>
+              <button class="btn-read-sm" data-id="css-grid">Read <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 blog-item" data-cat="webdev" data-keywords="semantic html accessibility seo elements header nav main article">
+        <div class="blog-card">
+          <img class="blog-thumb" src="https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=600&q=75&auto=format&fit=crop" alt="Semantic HTML">
+          <div class="blog-body">
+            <span class="art-tag tag-webdev">Web Dev</span>
+            <div class="blog-title">Why Semantic HTML Matters More Than You Think</div>
+            <div class="blog-excerpt">Using div for everything is the most common beginner habit. Here's why semantic HTML5 elements make your pages more accessible, readable, and better for SEO.</div>
+            <div class="blog-footer-row">
+              <div class="blog-meta-sm"><i class="fas fa-clock"></i>4 min · Nov 2025</div>
+              <button class="btn-read-sm" data-id="semantic-html">Read <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 blog-item" data-cat="bootstrap" data-keywords="bootstrap navbar responsive menu dropdown hamburger">
+        <div class="blog-card">
+          <img class="blog-thumb" src="https://images.unsplash.com/photo-1487014679447-9f8336841d58?w=600&q=75&auto=format&fit=crop" alt="Bootstrap Navbar">
+          <div class="blog-body">
+            <span class="art-tag tag-bootstrap">Bootstrap</span>
+            <div class="blog-title">Build a Perfect Responsive Navbar with Bootstrap 5</div>
+            <div class="blog-excerpt">Build a full responsive navbar with hamburger menu, dropdowns, a search bar, and a glassmorphism sticky effect — complete code walkthrough included.</div>
+            <div class="blog-footer-row">
+              <div class="blog-meta-sm"><i class="fas fa-clock"></i>6 min · Oct 2025</div>
+              <button class="btn-read-sm" data-id="bs-navbar">Read <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /row -->
+
+    <div class="no-results" id="noResults">
+      <i class="fas fa-search"></i>
+      <p>No articles match your search. Try a different keyword or category.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════ ARTICLE DRAWER ═══════════ -->
+<div class="overlay" id="overlay"></div>
+<div class="drawer" id="drawer">
+  <div class="dw-header">
+    <div class="dw-brand"><i class="fas fa-book-open me-2"></i>CodePath Blog</div>
+    <button class="dw-close" id="drawerClose" aria-label="Close article"><i class="fas fa-times"></i></button>
+  </div>
+  <img id="dwImg" class="dw-img" src="" alt="">
+  <div class="dw-meta-wrap">
+    <span id="dwTag" class="art-tag"></span>
+    <div class="dw-title" id="dwTitle"></div>
+    <div class="dw-meta" id="dwMeta"></div>
+  </div>
+  <div class="prose" id="dwContent"></div>
+</div>
+
+<!-- ═══════════ CTA ═══════════ -->
+<section class="section-cta">
+  <div class="container">
+    <div class="cta-box">
+      <h3>Want to Write for CodePath?</h3>
+      <p>Share your knowledge with thousands of BCA students. We welcome articles on HTML, CSS, JavaScript, Bootstrap, Git, and web dev careers.</p>
+      <a href="contact.html" class="btn-cta">Get in Touch <i class="fas fa-arrow-right ms-1"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer>
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="foot-brand">CodePath</div>
+        <div class="foot-sub">Heaven for Programmers.<br>Built by BCA students, for everyone.</div>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="foot-heading">Learn</div>
+        <ul class="foot-links">
+          <li><a href="learning-paths.html">Learning Paths</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="daily-quiz.html">Daily Quiz</a></li>
+          </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <div class="foot-heading">Company</div>
+        <ul class="foot-links">
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3">
+        <div class="foot-heading">Connect</div>
+        <div class="d-flex gap-3">
+          <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+    </div>
+    <hr class="foot-divider">
+    <div class="foot-copy">© 2026 CodePath · BCA 4th Semester Mini Project · All rights reserved</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* ═══════════════════════════════════════
+   THEME TOGGLE
+═══════════════════════════════════════ */
+(function(){
+  const root = document.documentElement;
+  const t = localStorage.getItem('cp-theme') || 'dark';
+  root.setAttribute('data-theme', t);
+  function syncIcons(th){
+    document.querySelectorAll('.theme-btn i').forEach(i => i.className = th === 'dark' ? 'fas fa-sun' : 'fas fa-moon');
+  }
+  syncIcons(t);
+  function toggle(){
+    const n = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', n);
+    localStorage.setItem('cp-theme', n);
+    syncIcons(n);
+  }
+  document.getElementById('themeToggleMob').addEventListener('click', toggle);
+  document.getElementById('themeToggleDesk').addEventListener('click', toggle);
+})();
+
+/* ═══════════════════════════════════════
+   FILTER + SEARCH
+═══════════════════════════════════════ */
+let activeFilter = 'all';
+
+function applyFilters(){
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  let visible = 0;
+
+  document.querySelectorAll('.blog-item').forEach(el => {
+    const cat      = el.dataset.cat || '';
+    const keywords = el.dataset.keywords || '';
+    const titleEl  = el.querySelector('.blog-title');
+    const titleTxt = titleEl ? titleEl.textContent.toLowerCase() : '';
+
+    const catOk    = activeFilter === 'all' || cat === activeFilter;
+    const searchOk = !q || keywords.includes(q) || titleTxt.includes(q);
+
+    el.style.display = (catOk && searchOk) ? '' : 'none';
+    if(catOk && searchOk) visible++;
+  });
+
+  // Featured card — show when filter is all/bootstrap and search matches
+  const fw = document.getElementById('featuredWrap');
+  const featKeywords = 'bootstrap css framework responsive grid components';
+  const featTitle    = 'getting started with bootstrap 5.3 complete beginner guide';
+  const catOkFeat    = activeFilter === 'all' || activeFilter === 'bootstrap';
+  const searchOkFeat = !q || featKeywords.includes(q) || featTitle.includes(q);
+  fw.style.display = (catOkFeat && searchOkFeat) ? '' : 'none';
+  if(catOkFeat && searchOkFeat) visible++;
+
+  document.getElementById('noResults').style.display = visible === 0 ? 'block' : 'none';
+}
+
+// Category buttons
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    activeFilter = this.dataset.filter;
+    applyFilters();
+  });
+});
+
+// Search input
+document.getElementById('searchInput').addEventListener('input', applyFilters);
+
+/* ═══════════════════════════════════════
+   ARTICLE DATA
+═══════════════════════════════════════ */
+const ARTICLES = {
+
+  'bs5-guide': {
+    img:    'https://images.unsplash.com/photo-1593720213428-28a5b9e94613?w=1200&q=80&auto=format&fit=crop',
+    tag:    'Bootstrap', tagClass: 'tag-bootstrap',
+    title:  'Getting Started with Bootstrap 5.3 — A Complete Beginner Guide',
+    author: 'Priya Sharma', date: 'March 2026', read: '8 min read',
+    body: `
+<p>Bootstrap is the world's most popular CSS framework — used by millions of developers to build responsive, mobile-first websites fast. If you've been writing all your CSS from scratch for every project, Bootstrap will feel like a superpower once it clicks.</p>
+
+<h2>What Is Bootstrap?</h2>
+<p>Bootstrap is a free, open-source CSS and JavaScript toolkit. It gives you a ready-made <strong>12-column grid system</strong>, pre-styled components (buttons, navbars, cards, modals), and a huge set of utility classes so you can build professional layouts in minutes instead of hours.</p>
+<div class="tip"><strong>💡 Good to know:</strong> Bootstrap 5 dropped jQuery entirely — it now runs on pure vanilla JavaScript. You don't need to learn jQuery to use it.</div>
+
+<h2>Adding Bootstrap via CDN</h2>
+<p>The fastest way to get started is the CDN. Add these two lines to your HTML file:</p>
+<pre><code>&lt;!-- Inside &lt;head&gt; --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;!-- Before &lt;/body&gt; --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;</code></pre>
+<p>That's it. You now have access to every Bootstrap component and utility class.</p>
+
+<h2>The Grid System</h2>
+<p>Bootstrap's grid divides every row into <strong>12 equal columns</strong>. You use <code>col-</code> classes to control how many columns each element spans:</p>
+<pre><code>&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;div class="col-md-6"&gt;Left half&lt;/div&gt;
+    &lt;div class="col-md-6"&gt;Right half&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<p>The <code>md</code> in <code>col-md-6</code> means this layout applies at medium screens (≥768px). On smaller screens, the columns automatically stack to full width. That's responsive design with zero custom media queries.</p>
+
+<h2>Breakpoints Cheat Sheet</h2>
+<ul>
+  <li><code>col-</code> — applies at all sizes (extra small)</li>
+  <li><code>col-sm-</code> — 576px and above</li>
+  <li><code>col-md-</code> — 768px and above</li>
+  <li><code>col-lg-</code> — 992px and above</li>
+  <li><code>col-xl-</code> — 1200px and above</li>
+</ul>
+
+<h2>Your First Component: Navbar</h2>
+<pre><code>&lt;nav class="navbar navbar-expand-lg bg-dark navbar-dark"&gt;
+  &lt;div class="container"&gt;
+    &lt;a class="navbar-brand" href="#"&gt;MyApp&lt;/a&gt;
+
+    &lt;button class="navbar-toggler" type="button"
+      data-bs-toggle="collapse" data-bs-target="#nav"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+
+    &lt;div class="collapse navbar-collapse" id="nav"&gt;
+      &lt;ul class="navbar-nav ms-auto"&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+<p>That's a fully responsive navbar — hamburger menu on mobile, horizontal links on desktop — with zero custom JavaScript.</p>
+
+<h2>Utility Classes — Bootstrap's Secret Weapon</h2>
+<p>Utility classes let you style elements directly in HTML without writing any CSS. The most useful ones:</p>
+<ul>
+  <li><code>mt-3</code>, <code>mb-4</code>, <code>p-2</code> — margin and padding shortcuts</li>
+  <li><code>d-flex</code>, <code>justify-content-between</code>, <code>align-items-center</code> — flexbox helpers</li>
+  <li><code>text-center</code>, <code>fw-bold</code>, <code>text-muted</code> — typography</li>
+  <li><code>bg-primary</code>, <code>text-white</code>, <code>rounded</code> — colour and shape</li>
+</ul>
+<blockquote><p>Bootstrap isn't about writing less CSS — it's about spending your time on what actually matters: building features, not reinventing buttons.</p></blockquote>
+
+<h2>What to Do Next</h2>
+<p>Once you're comfortable with the grid and basic components, explore the official Bootstrap docs at <strong>getbootstrap.com</strong> — it's one of the best-written docs in all of web development. Try building a full landing page using only Bootstrap classes. You'll be amazed at how fast you can ship something that looks professional.</p>
+`
+  },
+
+  'fetch-api': {
+    img:    'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80&auto=format&fit=crop',
+    tag:    'JavaScript', tagClass: 'tag-js',
+    title:  'The Fetch API Explained — No jQuery Needed',
+    author: 'Arjun Kumar', date: 'February 2026', read: '6 min read',
+    body: `
+<p>For years, developers relied on jQuery's <code>$.ajax()</code> to make HTTP requests. Today, every modern browser ships the <strong>Fetch API</strong> built-in — no library needed.</p>
+
+<h2>What Is Fetch?</h2>
+<p>Fetch is a native browser API for making network requests. It replaces the older <code>XMLHttpRequest</code> with a cleaner, Promise-based syntax that is much easier to read and write.</p>
+
+<h2>A Basic GET Request</h2>
+<pre><code>fetch('https://api.example.com/users')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error('Error:', error));</code></pre>
+<p><code>fetch()</code> returns a Promise. When it resolves you call <code>.json()</code> on the response (also a Promise) to parse the body as JSON.</p>
+
+<h2>The Modern Way: async/await</h2>
+<pre><code>async function getUsers() {
+  try {
+    const response = await fetch('https://api.example.com/users');
+
+    if (!response.ok) {
+      throw new Error('HTTP error — status: ' + response.status);
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+  } catch (error) {
+    console.error('Fetch failed:', error);
+  }
+}
+
+getUsers();</code></pre>
+<div class="warn"><strong>⚠️ Important:</strong> Fetch does NOT throw an error for HTTP 404 or 500 responses — it only rejects on a network failure. Always check <code>response.ok</code> yourself.</div>
+
+<h2>Making a POST Request</h2>
+<pre><code>async function createUser(userData) {
+  const response = await fetch('https://api.example.com/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userData)
+  });
+
+  const newUser = await response.json();
+  return newUser;
+}
+
+createUser({ name: 'Arjun', email: 'arjun@example.com' });</code></pre>
+
+<h2>Displaying API Data in the DOM</h2>
+<pre><code>async function loadPosts() {
+  const res   = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5');
+  const posts = await res.json();
+
+  const container = document.getElementById('posts');
+  posts.forEach(post => {
+    const card = document.createElement('div');
+    card.innerHTML = \`&lt;h3&gt;\${post.title}&lt;/h3&gt;&lt;p&gt;\${post.body}&lt;/p&gt;\`;
+    container.appendChild(card);
+  });
+}
+
+loadPosts();</code></pre>
+<div class="tip"><strong>💡 Tip:</strong> Use <strong>JSONPlaceholder</strong> (jsonplaceholder.typicode.com) as a free fake REST API while you practice. It has endpoints for posts, users, todos, and more.</div>
+
+<h2>Quick Summary</h2>
+<ul>
+  <li>Use <code>fetch(url)</code> for GET requests — it's the default method</li>
+  <li>Pass an options object with <code>method</code>, <code>headers</code>, and <code>body</code> for POST/PUT/DELETE</li>
+  <li>Always check <code>response.ok</code> before processing the data</li>
+  <li>Use <code>try/catch</code> with async/await for clean error handling</li>
+  <li>Call <code>response.json()</code> to parse the body — it returns a Promise too</li>
+</ul>
+`
+  },
+
+  'flexbox-guide': {
+    img:    'https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=1200&q=80&auto=format&fit=crop',
+    tag:    'CSS', tagClass: 'tag-css',
+    title:  'CSS Flexbox: The Only Guide You\'ll Ever Need',
+    author: 'Rohit Verma', date: 'February 2026', read: '7 min read',
+    body: `
+<p>Flexbox changed CSS layout forever. Before it existed, developers used floats, inline-blocks, and negative margins to build layouts that were brittle and confusing to maintain. Flexbox makes layout feel logical.</p>
+
+<h2>Activating Flexbox</h2>
+<p>Set <code>display: flex</code> on a <strong>parent element</strong>. All its direct children become <em>flex items</em> instantly:</p>
+<pre><code>.container {
+  display: flex;
+}</code></pre>
+<p>That one line makes all children line up in a row. No floats. No clearing. Just flex.</p>
+
+<h2>Main Axis vs Cross Axis</h2>
+<p>Flexbox works around two axes. By default the <strong>main axis</strong> is horizontal (left → right) and the <strong>cross axis</strong> is vertical. <code>flex-direction</code> flips this:</p>
+<pre><code>.container {
+  flex-direction: row;       /* default — left to right */
+  flex-direction: column;    /* top to bottom */
+  flex-direction: row-reverse;
+  flex-direction: column-reverse;
+}</code></pre>
+
+<h2>justify-content — Main Axis Alignment</h2>
+<pre><code>.container {
+  display: flex;
+  justify-content: flex-start;    /* default */
+  justify-content: flex-end;
+  justify-content: center;
+  justify-content: space-between; /* ← most useful */
+  justify-content: space-around;
+  justify-content: space-evenly;
+}</code></pre>
+<div class="tip"><strong>💡 Tip:</strong> <code>space-between</code> is the most commonly used value. It pushes the first item to the start, last item to the end, and spaces everything else equally in between.</div>
+
+<h2>align-items — Cross Axis Alignment</h2>
+<pre><code>.container {
+  display: flex;
+  align-items: stretch;      /* default — items fill height */
+  align-items: flex-start;
+  align-items: flex-end;
+  align-items: center;       /* vertical centering! */
+  align-items: baseline;
+}</code></pre>
+
+<h2>The Perfect Centering Trick</h2>
+<p>Centring something both horizontally and vertically was famously hard in CSS for years. With Flexbox:</p>
+<pre><code>.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}</code></pre>
+<p>Three lines. That's all it takes to perfectly centre any element on the screen.</p>
+
+<h2>flex-wrap — Let Items Wrap</h2>
+<p>By default flex items stay on one line even if they overflow. <code>flex-wrap: wrap</code> lets them flow onto the next line:</p>
+<pre><code>.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}</code></pre>
+
+<h2>flex: grow, shrink, basis</h2>
+<p>Control how items size themselves with the <code>flex</code> shorthand:</p>
+<pre><code>.item { flex: 1; }           /* grow and shrink equally */
+.item { flex: 0 0 200px; }  /* fixed 200px, never grow or shrink */
+.item { flex: 2; }           /* takes twice as much space as flex:1 */</code></pre>
+
+<h2>Practice Resources</h2>
+<ul>
+  <li><strong>Flexbox Froggy</strong> (flexboxfroggy.com) — a game that teaches every Flexbox property interactively</li>
+  <li><strong>CSS-Tricks: A Complete Guide to Flexbox</strong> — the most bookmarked CSS reference on the internet</li>
+</ul>
+`
+  },
+
+  'git-guide': {
+    img:    'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?w=1200&q=80&auto=format&fit=crop',
+    tag:    'Tools', tagClass: 'tag-tools',
+    title:  'Git & GitHub for Beginners — From Zero to First Pull Request',
+    author: 'Arjun Kumar', date: 'January 2026', read: '9 min read',
+    body: `
+<p>Every developer uses Git. It's not optional. If you're applying for any tech role, the interviewer expects to see a GitHub profile with real code on it. Here's everything you need to get started today.</p>
+
+<h2>What Is Git?</h2>
+<p>Git is a <strong>version control system</strong>. It tracks every change you make to your code, lets you travel back to any previous version, and lets multiple people work on the same project without overwriting each other's work.</p>
+
+<h2>Install & Configure</h2>
+<p>Download Git from <strong>git-scm.com</strong>. After installing, open your terminal and set your identity:</p>
+<pre><code>git config --global user.name  "Your Name"
+git config --global user.email "you@example.com"</code></pre>
+
+<h2>The Three Commands You'll Use Every Day</h2>
+<pre><code>git add .                          # stage all changed files
+git commit -m "Your message here"  # save a snapshot
+git push origin main               # upload to GitHub</code></pre>
+
+<h2>Starting a New Project</h2>
+<pre><code>cd my-project          # go into your project folder
+git init               # initialise a git repository
+git add .              # stage everything
+git commit -m "Initial commit"</code></pre>
+
+<h2>Connecting to GitHub</h2>
+<p>Create a new repository on GitHub (github.com → New Repository), then link it:</p>
+<pre><code>git remote add origin https://github.com/yourusername/repo-name.git
+git branch -M main
+git push -u origin main</code></pre>
+
+<h2>Branches — Work Without Breaking Things</h2>
+<p>Never work directly on <code>main</code>. Create a branch for every feature or fix:</p>
+<pre><code>git checkout -b feature/contact-page   # create + switch
+
+# ... make your changes ...
+
+git add .
+git commit -m "Add contact page"
+git push origin feature/contact-page</code></pre>
+
+<h2>Pull Requests</h2>
+<p>After pushing your branch to GitHub, visit the repository page and click <strong>"Compare & pull request"</strong>. Add a short description of your changes and click <strong>"Create pull request"</strong>. This is how teams review code before it gets merged into the main branch.</p>
+<div class="tip"><strong>💡 Commit message tip:</strong> Write in the present tense — <em>"Add login page"</em> not <em>"Added login page"</em>. Keep them short but descriptive. Future you will thank present you.</div>
+
+<h2>Handy Commands to Bookmark</h2>
+<pre><code>git status          # see what's changed and staged
+git log --oneline   # compact commit history
+git diff            # see exact line-by-line changes
+git stash           # temporarily save uncommitted work
+git pull            # download latest changes from GitHub</code></pre>
+
+<h2>Your First Task</h2>
+<p>Create a GitHub account, make a repo called <code>my-portfolio</code>, push your HTML/CSS portfolio to it, then enable GitHub Pages under Settings → Pages. You'll have a live public URL to put on your resume in under 10 minutes.</p>
+`
+  },
+
+  'responsive-design': {
+    img:    'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80&auto=format&fit=crop',
+    tag:    'Web Dev', tagClass: 'tag-webdev',
+    title:  'Mobile-First Design: Why You Should Always Start Small',
+    author: 'Priya Sharma', date: 'January 2026', read: '5 min read',
+    body: `
+<p>Most beginners build their site on a big desktop screen, get it looking great, and then try to squish it down for mobile. The result is usually a mess of overriding media queries that fight each other. There is a much better approach.</p>
+
+<h2>What Is Mobile-First Design?</h2>
+<p><strong>Mobile-first</strong> means you write your base CSS for the smallest screen first, then use <code>min-width</code> media queries to progressively add styles as the screen gets wider.</p>
+
+<h2>Desktop-First vs Mobile-First — Side by Side</h2>
+<pre><code>/* ❌ Desktop-first approach */
+.container { width: 1200px; }
+@media (max-width: 768px) {
+  .container { width: 100%; }  /* overriding */
+}
+
+/* ✅ Mobile-first approach */
+.container { width: 100%; }   /* base: full width on small */
+@media (min-width: 768px) {
+  .container { max-width: 1200px; }  /* enhancing */
+}</code></pre>
+<p>The mobile-first version is simpler. Start with the simplest layout and add complexity only when you have more screen space to use.</p>
+
+<h2>Why It Produces Better Results</h2>
+<ul>
+  <li><strong>Performance:</strong> Mobile devices only download what they need — they don't waste bandwidth loading desktop styles they'll immediately override.</li>
+  <li><strong>Clarity:</strong> Your CSS flows from simple → complex. Much easier to read and maintain six months later.</li>
+  <li><strong>Content priority:</strong> Designing for a small screen forces you to decide what content actually matters on the page.</li>
+</ul>
+
+<h2>The Viewport Meta Tag — Don't Forget It</h2>
+<p>Always include this in your <code>&lt;head&gt;</code>. Without it, mobile browsers render your page as a shrunken desktop page:</p>
+<pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+<div class="tip"><strong>💡 Test tip:</strong> Use Chrome DevTools device toolbar (Ctrl+Shift+M / Cmd+Shift+M) to test at 375px width — that's the iPhone SE viewport and a common minimum target.</div>
+
+<h2>Bootstrap Is Already Mobile-First</h2>
+<p>Bootstrap's grid uses <code>min-width</code> breakpoints by default. When you write <code>col-md-6</code>, you're saying "full width on small screens, half width on medium and above". That's mobile-first baked directly into the class names — another reason Bootstrap is such a good learning tool.</p>
+`
+  },
+
+  'async-await': {
+    img:    'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?w=1200&q=80&auto=format&fit=crop',
+    tag:    'JavaScript', tagClass: 'tag-js',
+    title:  'Async/Await Explained Simply — Stop Being Afraid of Async JS',
+    author: 'Arjun Kumar', date: 'December 2025', read: '7 min read',
+    body: `
+<p>Asynchronous JavaScript trips up nearly every beginner. But once you understand <em>why</em> it exists, the syntax becomes obvious. Let's build the full picture from scratch.</p>
+
+<h2>Why Does Async JavaScript Exist?</h2>
+<p>JavaScript runs in a <strong>single thread</strong> — it can only do one thing at a time. If it had to wait for every network request to finish before moving on, your browser would freeze completely while data is loading. Async JS is the solution: start a slow task, keep doing other things, and handle the result when it arrives.</p>
+
+<h2>The Evolution: Callbacks → Promises → async/await</h2>
+<pre><code>// 1. Callbacks (old way — gets messy fast)
+getData(function(result) {
+  processData(result, function(processed) {
+    saveData(processed, function() {
+      console.log('Done!'); // "callback hell"
+    });
+  });
+});
+
+// 2. Promises (much better)
+getData()
+  .then(result  => processData(result))
+  .then(processed => saveData(processed))
+  .then(() => console.log('Done!'))
+  .catch(err => console.error(err));
+
+// 3. async/await (reads like normal synchronous code)
+async function run() {
+  try {
+    const result    = await getData();
+    const processed = await processData(result);
+    await saveData(processed);
+    console.log('Done!');
+  } catch(err) {
+    console.error(err);
+  }
+}</code></pre>
+
+<h2>What Is a Promise?</h2>
+<p>A Promise is an object representing a value that will be available in the future. It has three possible states:</p>
+<ul>
+  <li><strong>Pending</strong> — the operation hasn't finished yet</li>
+  <li><strong>Fulfilled</strong> — it completed successfully, result is available</li>
+  <li><strong>Rejected</strong> — it failed, an error is available</li>
+</ul>
+
+<h2>async/await Syntax Rules</h2>
+<p>Mark a function with <code>async</code> — it now returns a Promise automatically. Inside it, use <code>await</code> to pause until a Promise resolves:</p>
+<pre><code>async function fetchUser(id) {
+  const response = await fetch(\`https://api.example.com/users/\${id}\`);
+  const user     = await response.json();
+  return user; // automatically wrapped in a resolved Promise
+}
+
+// Calling it:
+fetchUser(1).then(user => console.log(user));</code></pre>
+<div class="warn"><strong>⚠️ Rule:</strong> You can only use <code>await</code> inside an <code>async</code> function. Placing it outside will throw a syntax error (except in top-level module scripts).</div>
+
+<h2>Parallel Requests with Promise.all</h2>
+<pre><code>// ❌ Sequential — slow, each waits for the previous
+const user  = await fetchUser(1);
+const posts = await fetchPosts(1);
+
+// ✅ Parallel — fast, both requests fire simultaneously
+const [user, posts] = await Promise.all([
+  fetchUser(1),
+  fetchPosts(1)
+]);</code></pre>
+<p>Use <code>Promise.all()</code> whenever you have multiple independent async tasks — they run simultaneously and you get all results at once.</p>
+`
+  },
+
+  'portfolio-tips': {
+    img:    'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1200&q=80&auto=format&fit=crop',
+    tag:    'Career', tagClass: 'tag-career',
+    title:  '5 Things Every BCA Student Must Have in Their Portfolio',
+    author: 'Priya Sharma', date: 'December 2025', read: '5 min read',
+    body: `
+<p>You've been coding for a year or two. You know HTML, CSS, and some JavaScript. But you send your resume and hear nothing back. The problem is almost always the portfolio — or the lack of one.</p>
+
+<h2>1. A Live, Deployed URL</h2>
+<p>A GitHub repository is not a portfolio. A live URL is. Deploy your portfolio site on <strong>GitHub Pages</strong> (completely free) and put that link at the very top of your resume. Recruiters should click it and immediately see your work — not clone a repo and run <code>npm install</code>.</p>
+
+<h2>2. Two or Three Real Projects</h2>
+<p>Not tutorial follow-alongs where you typed along with a YouTube video. Projects you actually built because you had an idea. They don't need to be complex — a weather app, a to-do list with localStorage, or a responsive landing page all count. What matters is that <strong>you made the decisions</strong>: what to build, how to structure it, how to design it.</p>
+<div class="tip"><strong>💡 For each project:</strong> Write a README that explains what it does, what tech you used, and what you learned. Recruiters do read these.</div>
+
+<h2>3. Clean, Readable Code on GitHub</h2>
+<p>Indent consistently. Use meaningful variable names. Delete commented-out code before pushing. Add a comment where the logic is non-obvious. Your GitHub is your coding CV — treat it like one.</p>
+
+<h2>4. Specific Skills Section</h2>
+<p>List the technologies you actually know: HTML5, CSS3, JavaScript (ES6+), Bootstrap 5, Git, MySQL. Don't just write "Web Development". Be specific. When a recruiter searches for candidates with Bootstrap experience, your resume needs to literally contain the word Bootstrap.</p>
+
+<h2>5. A Working Contact Form or Email</h2>
+<p>Your portfolio must have a way to reach you that actually works. You'd be surprised how many students lose opportunities because a recruiter liked their work but couldn't figure out how to contact them.</p>
+<blockquote><p>A good portfolio doesn't prove you know everything. It proves you can build things, solve problems, and ship something real.</p></blockquote>
+
+<h2>Bonus: A Short "About Me"</h2>
+<p>Three to four sentences. What you study, what you enjoy building, and what role you're looking for. Be specific and honest. "I'm a BCA student who loves building responsive UIs with HTML, CSS, and Bootstrap" is ten times better than "I'm a passionate developer who loves challenges."</p>
+`
+  },
+
+  'css-grid': {
+    img:    'https://images.unsplash.com/photo-1547658719-da2b51169166?w=1200&q=80&auto=format&fit=crop',
+    tag:    'CSS', tagClass: 'tag-css',
+    title:  'CSS Grid Layout — Build Any Layout in 10 Minutes',
+    author: 'Rohit Verma', date: 'November 2025', read: '8 min read',
+    body: `
+<p>Flexbox is great for one-dimensional layouts — a row of cards, a navigation bar. CSS Grid handles two-dimensional layouts: rows and columns at the same time. Together they cover every layout you will ever need to build.</p>
+
+<h2>Enabling Grid</h2>
+<pre><code>.container {
+  display: grid;
+}</code></pre>
+
+<h2>grid-template-columns</h2>
+<p>The most important Grid property. Defines how many columns you want and how wide each one is:</p>
+<pre><code>.container {
+  /* three fixed 200px columns */
+  grid-template-columns: 200px 200px 200px;
+
+  /* three equal columns using fr (fraction) */
+  grid-template-columns: 1fr 1fr 1fr;
+
+  /* shorthand with repeat() */
+  grid-template-columns: repeat(3, 1fr);
+
+  /* sidebar + main area */
+  grid-template-columns: 260px 1fr;
+}</code></pre>
+<p>The <code>fr</code> unit means "fraction of the available space" — similar to <code>flex-grow</code> in Flexbox.</p>
+
+<h2>gap — Space Between Items</h2>
+<pre><code>.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;            /* equal row and column gap */
+  /* row-gap: 1rem;       separate control */
+  /* column-gap: 2rem; */
+}</code></pre>
+
+<h2>auto-fit + minmax — Responsive With Zero Media Queries</h2>
+<p>This is one of the most powerful patterns in modern CSS:</p>
+<pre><code>.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}</code></pre>
+<p><code>auto-fit</code> creates as many columns as will fit in the available width. <code>minmax(280px, 1fr)</code> ensures each column is at least 280px wide but expands to fill spare space. The result: a perfectly responsive card grid with absolutely no media queries.</p>
+<div class="tip"><strong>💡 Memorise this pattern.</strong> It works for card grids, image galleries, feature sections — any collection of items that needs to be responsive. It's used on this very site.</div>
+
+<h2>Spanning Multiple Columns or Rows</h2>
+<pre><code>.hero-card {
+  grid-column: 1 / 3;   /* from line 1 to line 3 */
+  grid-row: 1 / 2;
+}
+
+.wide-item {
+  grid-column: span 2;  /* takes up 2 columns */
+}</code></pre>
+
+<h2>Named Grid Areas</h2>
+<pre><code>.layout {
+  display: grid;
+  grid-template-areas:
+    "header  header"
+    "sidebar main"
+    "footer  footer";
+  grid-template-columns: 260px 1fr;
+  gap: 1.5rem;
+}
+
+header  { grid-area: header;  }
+.sidebar{ grid-area: sidebar; }
+main    { grid-area: main;    }
+footer  { grid-area: footer;  }</code></pre>
+<p>You can literally see the page layout in your CSS. This is one of the most readable approaches to full page layout that exists.</p>
+`
+  },
+
+  'semantic-html': {
+    img:    'https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1200&q=80&auto=format&fit=crop',
+    tag:    'Web Dev', tagClass: 'tag-webdev',
+    title:  'Why Semantic HTML Matters More Than You Think',
+    author: 'Priya Sharma', date: 'November 2025', read: '4 min read',
+    body: `
+<p>When most beginners learn HTML they pick up one habit: use <code>&lt;div&gt;</code> for everything. A div for the header, a div for the nav, a div for each section. It renders fine in the browser — but it's wrong, and here's why it matters.</p>
+
+<h2>What Is a Semantic Element?</h2>
+<p>A semantic element carries meaning about the <em>type of content</em> it contains, not just where it sits on the page. Compare:</p>
+<pre><code>&lt;!-- ❌ Non-semantic — what does any of this mean? --&gt;
+&lt;div class="header-wrapper"&gt;
+  &lt;div class="nav-container"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="content-area"&gt;
+  &lt;div class="blog-post"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- ✅ Semantic — immediately clear to everyone --&gt;
+&lt;header&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+&lt;main&gt;
+  &lt;article&gt;...&lt;/article&gt;
+&lt;/main&gt;</code></pre>
+
+<h2>The Key Semantic Elements</h2>
+<ul>
+  <li><code>&lt;header&gt;</code> — introductory content, usually logo and navigation</li>
+  <li><code>&lt;nav&gt;</code> — a set of navigation links</li>
+  <li><code>&lt;main&gt;</code> — the primary content (use only once per page)</li>
+  <li><code>&lt;article&gt;</code> — self-contained content (a blog post, a news story)</li>
+  <li><code>&lt;section&gt;</code> — a thematic grouping of related content</li>
+  <li><code>&lt;aside&gt;</code> — tangentially related content like sidebars or pull quotes</li>
+  <li><code>&lt;footer&gt;</code> — footer for its nearest sectioning ancestor</li>
+  <li><code>&lt;figure&gt;</code> + <code>&lt;figcaption&gt;</code> — images with descriptive captions</li>
+</ul>
+
+<h2>Why It Actually Matters</h2>
+<p><strong>Accessibility:</strong> Screen readers — used by visually impaired people — use semantic elements to navigate pages. A user can jump directly to <code>&lt;main&gt;</code> or skip the <code>&lt;nav&gt;</code>. With a div-soup page, they have to read through everything sequentially.</p>
+<p><strong>SEO:</strong> Search engines use semantic structure to understand what a page is about. An <code>&lt;article&gt;</code> with an <code>&lt;h1&gt;</code> inside a <code>&lt;main&gt;</code> is a clear signal. A div with a class name is noise.</p>
+<p><strong>Readability:</strong> Other developers — and future you — understand the page structure immediately when you use semantic elements. Code is read far more often than it is written.</p>
+<div class="tip"><strong>Simple rule:</strong> Use <code>&lt;div&gt;</code> only when no semantic element fits the content. For pure layout containers with no inherent meaning, divs are perfectly fine. For meaningful content areas, use the right element.</div>
+`
+  },
+
+  'bs-navbar': {
+    img:    'https://images.unsplash.com/photo-1487014679447-9f8336841d58?w=1200&q=80&auto=format&fit=crop',
+    tag:    'Bootstrap', tagClass: 'tag-bootstrap',
+    title:  'Build a Perfect Responsive Navbar with Bootstrap 5',
+    author: 'Rohit Verma', date: 'October 2025', read: '6 min read',
+    body: `
+<p>The navbar is usually the first thing a visitor interacts with on your site. A broken or unstyled navbar immediately signals an unfinished product. Bootstrap makes building a solid, responsive one surprisingly quick.</p>
+
+<h2>The Basic Structure</h2>
+<pre><code>&lt;nav class="navbar navbar-expand-lg navbar-dark bg-dark"&gt;
+  &lt;div class="container"&gt;
+
+    &lt;!-- Brand --&gt;
+    &lt;a class="navbar-brand" href="#"&gt;MyBrand&lt;/a&gt;
+
+    &lt;!-- Mobile hamburger button --&gt;
+    &lt;button class="navbar-toggler" type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"&gt;
+      &lt;span class="navbar-toggler-icon"&gt;&lt;/span&gt;
+    &lt;/button&gt;
+
+    &lt;!-- Collapsible nav links --&gt;
+    &lt;div class="collapse navbar-collapse" id="mainNav"&gt;
+      &lt;ul class="navbar-nav ms-auto"&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link active" href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;About&lt;/a&gt;&lt;/li&gt;
+        &lt;li class="nav-item"&gt;&lt;a class="nav-link" href="#"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre>
+<p><code>navbar-expand-lg</code> collapses the menu below 992px. <code>ms-auto</code> on the <code>ul</code> pushes links to the right side.</p>
+
+<h2>Adding a Dropdown Menu</h2>
+<pre><code>&lt;li class="nav-item dropdown"&gt;
+  &lt;a class="nav-link dropdown-toggle" href="#"
+    data-bs-toggle="dropdown"&gt;Resources&lt;/a&gt;
+  &lt;ul class="dropdown-menu"&gt;
+    &lt;li&gt;&lt;a class="dropdown-item" href="blog.html"&gt;Blog&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class="dropdown-item" href="templates.html"&gt;Templates&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;hr class="dropdown-divider"&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a class="dropdown-item" href="about.html"&gt;About&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/li&gt;</code></pre>
+
+<h2>Adding a Search Bar</h2>
+<pre><code>&lt;form class="d-flex ms-3"&gt;
+  &lt;input class="form-control me-2" type="search" placeholder="Search…"&gt;
+  &lt;button class="btn btn-outline-light" type="submit"&gt;Go&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+
+<h2>Sticky Navbar with Blur Effect</h2>
+<p>Add Bootstrap's <code>sticky-top</code> class, then override the background with CSS for a modern frosted-glass look:</p>
+<pre><code>&lt;nav class="navbar navbar-expand-lg sticky-top" id="siteNav"&gt;
+
+&lt;style&gt;
+  #siteNav {
+    background: rgba(13, 15, 20, 0.92) !important;
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+&lt;/style&gt;</code></pre>
+<div class="tip"><strong>💡 Tip:</strong> <code>sticky-top</code> applies <code>position: sticky; top: 0</code>. Combined with <code>backdrop-filter: blur()</code> you get the frosted-glass navbar used on this very site — and on most modern web products.</div>
+
+<h2>Customising the Colour Scheme</h2>
+<p>Instead of <code>navbar-dark bg-dark</code>, use Bootstrap's CSS variables to theme it:</p>
+<pre><code>&lt;style&gt;
+  .navbar {
+    --bs-navbar-color: rgba(255,255,255,0.7);
+    --bs-navbar-hover-color: #fff;
+    --bs-navbar-active-color: #60a5fa;
+    --bs-navbar-brand-color: #fff;
+  }
+&lt;/style&gt;</code></pre>
+<p>This approach keeps your changes scoped and works seamlessly with Bootstrap's internal component styles.</p>
+`
+  }
+};
+
+/* ═══════════════════════════════════════
+   DRAWER OPEN / CLOSE
+═══════════════════════════════════════ */
+const overlay = document.getElementById('overlay');
+const drawer  = document.getElementById('drawer');
+
+function openArticle(id) {
+  const a = ARTICLES[id];
+  if (!a) return;
+
+  document.getElementById('dwImg').src       = a.img;
+  document.getElementById('dwImg').alt       = a.title;
+  document.getElementById('dwTag').className = 'art-tag ' + a.tagClass;
+  document.getElementById('dwTag').textContent = a.tag;
+  document.getElementById('dwTitle').textContent = a.title;
+  document.getElementById('dwMeta').innerHTML =
+    `<span><i class="fas fa-user"></i>${a.author}</span>
+     <span><i class="fas fa-calendar"></i>${a.date}</span>
+     <span><i class="fas fa-clock"></i>${a.read}</span>`;
+  document.getElementById('dwContent').innerHTML = a.body;
+
+  overlay.classList.add('open');
+  drawer.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  drawer.scrollTop = 0;
+}
+
+function closeArticle() {
+  overlay.classList.remove('open');
+  drawer.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close button
+document.getElementById('drawerClose').addEventListener('click', closeArticle);
+// Click overlay to close
+overlay.addEventListener('click', closeArticle);
+// Escape key
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeArticle(); });
+
+/* ═══════════════════════════════════════
+   WIRE UP ALL READ BUTTONS
+   (featured card click + all btn-read / btn-read-sm)
+═══════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function () {
+
+  // Featured card — entire card is clickable
+  document.getElementById('featuredCard').addEventListener('click', function () {
+    openArticle(this.dataset.id);
+  });
+
+  // All read buttons (featured + grid)
+  document.querySelectorAll('[data-id]').forEach(function (el) {
+    if (el.tagName === 'BUTTON') {
+      el.addEventListener('click', function (e) {
+        e.stopPropagation(); // prevent double-fire on featured card
+        openArticle(this.dataset.id);
+      });
+    }
+  });
+
+  // Handle incoming deep-links from other pages
+  const urlParams = new URLSearchParams(window.location.search);
+  const articleId = urlParams.get('id');
+  if (articleId && ARTICLES[articleId]) {
+    openArticle(articleId);
+  }
+
+});
+</script>
+</body>
+</html>

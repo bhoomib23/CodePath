@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Quiz — CodePath</title>
+  <link rel="icon" type="image/x-icon" href="terminal.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ══════════════════════════════════════════
+       LIGHT & DARK THEMES (Copied from index.html)
+    ══════════════════════════════════════════ */
+    :root,
+    [data-theme="light"] {
+      --bg: #f5f7fa;
+      --surface: #ffffff;
+      --card: #ffffff;
+      --border: #e2e6ed;
+      --accent: #2563eb;
+      --accent2: #7c3aed;
+      --green: #059669;
+      --amber: #d97706;
+      --text: #111827;
+      --muted: #6b7280;
+      --navbar-bg: rgba(255, 255, 255, 0.93);
+      --navbar-border: #e2e6ed;
+      --shadow: rgba(0, 0, 0, 0.06);
+      --shadow-hover: rgba(0, 0, 0, 0.13);
+      --why-hover: #eff4ff;
+      --footer-bg: #1e2330;
+      --toggle-bg: #f0f2f5;
+      --toggle-border: #d1d5db;
+      --toggle-color: #374151;
+      --mono: 'Space Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0d0f14;
+      --surface: #13151c;
+      --card: #1a1d27;
+      --border: #2a2d3a;
+      --accent: #4f8ef7;
+      --accent2: #a78bfa;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --text: #e4e6f0;
+      --muted: #7b7f99;
+      --navbar-bg: rgba(13, 15, 20, 0.93);
+      --navbar-border: #2a2d3a;
+      --shadow: rgba(0, 0, 0, 0.3);
+      --shadow-hover: rgba(0, 0, 0, 0.5);
+      --why-hover: #1f2235;
+      --footer-bg: #0a0c11;
+      --toggle-bg: #2a2d3a;
+      --toggle-border: #3a3e50;
+      --toggle-color: #e4e6f0;
+    }
+
+    /* ══════════════════════════════════════════
+       BASE & NAVBAR
+    ══════════════════════════════════════════ */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.65;
+      transition: background 0.35s, color 0.35s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* THEME TOGGLE BUTTON */
+    .theme-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--toggle-border);
+      background: var(--toggle-bg);
+      color: var(--toggle-color);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: 0.88rem;
+      transition: background 0.3s, border-color 0.3s, transform 0.25s, color 0.3s;
+      outline: none;
+    }
+    .theme-btn:hover {
+      transform: rotate(18deg) scale(1.1);
+    }
+
+    .navbar {
+      background: var(--navbar-bg) !important;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--navbar-border);
+      padding: 0.7rem 0;
+    }
+    .navbar-brand {
+      font-family: var(--mono);
+      font-size: 1.2rem !important;
+      color: var(--text) !important;
+      text-decoration: none;
+    }
+    .nav-link {
+      color: var(--muted) !important;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.4rem 0.85rem !important;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--accent) !important;
+    }
+
+    .btn-nav-outline, .btn-nav {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      border-radius: 6px;
+      padding: 0.5rem 1.25rem;
+      text-decoration: none;
+      text-align: center;
+    }
+    .btn-nav-outline {
+      background: transparent;
+      color: var(--text) !important;
+      border: 1px solid var(--border);
+    }
+    .btn-nav-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent) !important;
+    }
+    .btn-nav {
+      background: var(--accent);
+      color: #fff !important;
+      border: 1px solid var(--accent);
+    }
+    .btn-nav:hover {
+      background: var(--accent2);
+      border-color: var(--accent2);
+    }
+
+     .logo-ring {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* ══════════════════════════════════════════
+       DAILY QUIZ STYLES
+    ══════════════════════════════════════════ */
+    .quiz-section {
+      padding: 4rem 0;
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .quiz-hero-title {
+      font-family: var(--mono);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .quiz-hero-sub {
+      color: var(--muted);
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .quiz-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 4px 24px var(--shadow);
+      overflow: hidden;
+      max-width: 700px;
+      margin: 0 auto;
+      transition: background 0.35s, border-color 0.35s;
+      display: none; /* hidden until js loads */
+    }
+
+    .quiz-progress-bar {
+      height: 4px;
+      background: var(--border);
+      width: 100%;
+    }
+
+    .quiz-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      width: 33%;
+      transition: width 0.4s ease;
+    }
+
+    .quiz-body {
+      padding: 2.5rem;
+    }
+
+    .quiz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .quiz-counter {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      color: var(--accent);
+      background: rgba(37, 99, 235, 0.1);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 700;
+    }
+    
+    [data-theme="dark"] .quiz-counter {
+      background: rgba(79, 142, 247, 0.15);
+    }
+
+    .streak-badge {
+      font-size: 0.9rem;
+      color: var(--amber);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quiz-question {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 1.5rem;
+      line-height: 1.4;
+    }
+
+    .code-block {
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      padding: 1rem;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+      overflow-x: auto;
+      color: var(--text);
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .option-btn {
+      background: transparent;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      text-align: left;
+      font-size: 0.95rem;
+      color: var(--text);
+      font-family: var(--sans);
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      background: rgba(37, 99, 235, 0.05);
+    }
+
+    [data-theme="dark"] .option-btn:hover:not(:disabled) {
+      background: rgba(79, 142, 247, 0.05);
+    }
+
+    .option-btn.selected {
+      border-color: var(--accent);
+      background: rgba(37, 99, 235, 0.08);
+    }
+
+    [data-theme="dark"] .option-btn.selected {
+      background: rgba(79, 142, 247, 0.1);
+    }
+
+    .option-btn.correct {
+      border-color: var(--green);
+      background: rgba(5, 150, 105, 0.1);
+      color: var(--text);
+    }
+
+    .option-btn.wrong {
+      border-color: #ef4444; /* red */
+      background: rgba(239, 68, 68, 0.1);
+      color: var(--text);
+      opacity: 0.6;
+    }
+
+    .option-btn > i {
+      display: none;
+      font-size: 1.1rem;
+    }
+
+    .option-btn.correct > .fa-check-circle {
+      display: block;
+      color: var(--green);
+    }
+
+    .option-btn.wrong > .fa-times-circle {
+      display: block;
+      color: #ef4444;
+    }
+
+    .btn-submit {
+      font-family: var(--mono);
+      font-size: 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.85rem;
+      border-radius: 8px;
+      width: 100%;
+      font-weight: 700;
+      transition: all 0.25s;
+      cursor: pointer;
+    }
+
+    .btn-submit:hover:not(:disabled) {
+      background: var(--accent2);
+      transform: translateY(-2px);
+    }
+
+    .btn-submit:disabled {
+      background: var(--muted);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    /* RESULT CARD */
+    .result-card {
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .result-icon {
+      font-size: 4rem;
+      color: var(--green);
+      margin-bottom: 1.5rem;
+    }
+
+    .result-title {
+      font-family: var(--mono);
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .result-score {
+      font-size: 1.2rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    /* ══════════════════════════════════════════
+       FOOTER (Copied from index.html)
+    ══════════════════════════════════════════ */
+    footer {
+      background: var(--footer-bg);
+      border-top: 1px solid var(--border);
+      padding: 3rem 0 2rem;
+    }
+    .foot-brand {
+      font-family: var(--mono);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.4rem;
+    }
+    .foot-sub { color: rgba(255, 255, 255, 0.42); font-size: 0.82rem; }
+    .foot-heading {
+      font-size: 0.73rem; text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.32); margin-bottom: 0.9rem;
+      font-family: var(--mono);
+    }
+    .foot-links { list-style: none; padding: 0; }
+    .foot-links li { margin-bottom: 0.45rem; }
+    .foot-links a {
+      color: rgba(255, 255, 255, 0.52); font-size: 0.875rem; text-decoration: none;
+    }
+    .foot-links a:hover { color: #fff; }
+    .foot-divider { border-color: rgba(255, 255, 255, 0.08); margin: 1.5rem 0; }
+    .foot-copy { font-size: 0.77rem; color: rgba(255, 255, 255, 0.28); }
+    .social-icon { color: rgba(255, 255, 255, 0.38); font-size: 1.15rem; text-decoration: none; }
+    .social-icon:hover { color: #fff; }
+
+    /* Media query */
+    @media (max-width: 768px) {
+      .quiz-card { margin: 0 1rem; }
+      .quiz-body { padding: 1.5rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ════════════════════ NAVBAR ════════════════════ -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <div class="logo-ring">CP</div>
+        CodePath
+      </a>
+
+      <!-- Mobile: theme toggle + hamburger -->
+      <div class="d-flex align-items-center gap-2 ms-auto d-lg-none">
+        <button class="theme-btn" id="themeToggleMob" title="Switch theme">
+          <i class="fas fa-moon"></i>
+        </button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="learning-paths.html">Learning Paths</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link active" href="daily-quiz.html">Daily Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+
+          <!-- Desktop theme toggle -->
+          <li class="nav-item d-none d-lg-flex align-items-center ms-2">
+            <button class="theme-btn" id="themeToggleDesk" title="Switch theme">
+              <i class="fas fa-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ════════════════════ QUIZ SECTION ════════════════════ -->
+  <main class="quiz-section">
+    <div class="container">
+      
+      <h1 class="quiz-hero-title">Daily Challenge</h1>
+      <p class="quiz-hero-sub">Complete today's 3 questions to extend your streak.</p>
+
+      <!-- Quiz Wrapper -->
+      <div id="quizBlock" class="quiz-card" style="display: block;">
+        
+        <div class="quiz-progress-bar">
+          <div id="quizProgress" class="quiz-progress-fill"></div>
+        </div>
+
+        <div class="quiz-body">
+          <div class="quiz-header">
+            <div class="quiz-counter" id="questionCounter">Question 1 of 3</div>
+            <div class="streak-badge" title="Current Streak"><i class="fas fa-fire"></i> 14</div>
+          </div>
+
+          <div class="quiz-content" id="quizContent">
+            <!-- Question text will be injected here -->
+          </div>
+
+          <div class="quiz-options" id="quizOptions">
+            <!-- Buttons will be injected here -->
+          </div>
+
+          <button id="submitBtn" class="btn-submit" disabled>Submit Answer</button>
+
+        </div>
+      </div>
+
+      <!-- Result Wrapper -->
+      <div id="resultBlock" class="quiz-card result-card">
+        <div class="result-icon">
+          <i class="fas fa-trophy"></i>
+        </div>
+        <div class="result-title">Challenge Complete!</div>
+        <div class="result-score">You scored <span id="finalScore">0</span> out of 3.</div>
+        <p style="color: var(--muted); margin-bottom: 2rem;">Come back tomorrow for new questions to maintain your streak!</p>
+        <a href="index.html" class="btn-submit" style="text-decoration:none; display:inline-block; width:auto; padding:0.8rem 2rem;">Back to Home</a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ════════════════════ FOOTER ════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="foot-brand">CodePath</div>
+          <div class="foot-sub">Heaven for Programmers.<br>Built by BCA students, for everyone.</div>
+        </div>
+        <div class="col-md-2">
+          <div class="foot-heading">Learn</div>
+          <ul class="foot-links">
+            <li><a href="learning-paths.html">Learning Paths</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="daily-quiz.html">Daily Quiz</a></li>
+          </ul>
+        </div>
+        <div class="col-md-2">
+          <div class="foot-heading">Company</div>
+          <ul class="foot-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4 text-md-end">
+          <div class="foot-heading">Connect</div>
+          <div class="d-flex gap-3 justify-content-md-end">
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="foot-divider" />
+      <div class="foot-copy text-center">
+        &copy; 2026 CodePath &nbsp;·&nbsp; BCA 4th Semester Mini Project &nbsp;·&nbsp; All rights reserved
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // ── THEME TOGGLE LOGIC ───────────────────────────────
+    const html = document.documentElement;
+    const allToggleBtns = document.querySelectorAll('.theme-btn');
+    const savedTheme = localStorage.getItem('codepath-theme') || 'dark';
+    
+    applyTheme(savedTheme);
+
+    allToggleBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const current = html.getAttribute('data-theme');
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+      });
+    });
+
+    function applyTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      localStorage.setItem('codepath-theme', theme);
+      const isDark = theme === 'dark';
+      allToggleBtns.forEach(btn => {
+        const icon = btn.querySelector('i');
+        icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+        btn.title = isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+      });
+    }
+
+    // ── QUIZ LOGIC ───────────────────────────────────────
+    
+    // Hardcoded daily questions (Focus on Web Technologies)
+    const questions = [
+      {
+        text: "What does the <code>z-index</code> property in CSS control?",
+        options: [
+          "The zooming scale of an element",
+          "The stack order of elements (which overlaps which)",
+          "The opacity of an image",
+          "The horizontal alignment inside a flexbox"
+        ],
+        correctIndex: 1
+      },
+      {
+        text: "Which of the following JavaScript methods is used to add new elements to the end of an array?",
+        options: [
+          "<code>unshift()</code>",
+          "<code>pop()</code>",
+          "<code>push()</code>",
+          "<code>concat()</code>"
+        ],
+        correctIndex: 2
+      },
+      {
+        text: "What is the correct HTML element for playing audio files?",
+        options: [
+          "<code>&lt;audio&gt;</code>",
+          "<code>&lt;mp3&gt;</code>",
+          "<code>&lt;sound&gt;</code>",
+          "<code>&lt;media&gt;</code>"
+        ],
+        correctIndex: 0
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let selectedOption = null;
+    let hasSubmitted = false;
+
+    const quizContent = document.getElementById("quizContent");
+    const quizOptions = document.getElementById("quizOptions");
+    const submitBtn = document.getElementById("submitBtn");
+    const quizProgress = document.getElementById("quizProgress");
+    const questionCounter = document.getElementById("questionCounter");
+    const resultBlock = document.getElementById("resultBlock");
+    const quizBlock = document.getElementById("quizBlock");
+    const finalScore = document.getElementById("finalScore");
+
+    function loadQuestion() {
+      // Reset state for new question
+      selectedOption = null;
+      hasSubmitted = false;
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submit Answer";
+      
+      const qData = questions[currentQ];
+      
+      // Update header
+      questionCounter.textContent = `Question ${currentQ + 1} of ${questions.length}`;
+      quizProgress.style.width = `${((currentQ + 1) / questions.length) * 100}%`;
+
+      // Build question html
+      let htmlStr = `<div class="quiz-question">${qData.text}</div>`;
+      if (qData.code) {
+        htmlStr += `<div class="code-block">${qData.code.replace(/\n/g, '<br>')}</div>`;
+      }
+      quizContent.innerHTML = htmlStr;
+
+      // Build options
+      quizOptions.innerHTML = "";
+      qData.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.innerHTML = `<span>${opt}</span> <i class="fas"></i>`;
+        
+        btn.addEventListener("click", () => {
+          if (hasSubmitted) return;
+          
+          // Clear previous selection
+          document.querySelectorAll(".option-btn").forEach(b => b.classList.remove("selected"));
+          
+          // Select this one
+          btn.classList.add("selected");
+          selectedOption = idx;
+          submitBtn.disabled = false;
+        });
+
+        quizOptions.appendChild(btn);
+      });
+    }
+
+    // Handle submit button
+    submitBtn.addEventListener("click", () => {
+      // If pressing Next
+      if (hasSubmitted) {
+        currentQ++;
+        if (currentQ < questions.length) {
+          loadQuestion();
+        } else {
+          showResults();
+        }
+        return;
+      }
+
+      // If submitting answer
+      hasSubmitted = true;
+      const qData = questions[currentQ];
+      const buttons = document.querySelectorAll(".option-btn");
+      
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true; // disable all clicks
+        const icon = btn.querySelector("i");
+        
+        if (idx === qData.correctIndex) {
+          btn.classList.add("correct");
+          icon.className = "fas fa-check-circle";
+        } else if (idx === selectedOption && idx !== qData.correctIndex) {
+          btn.classList.add("wrong");
+          icon.className = "fas fa-times-circle";
+        } else {
+          btn.style.opacity = "0.5";
+        }
+      });
+
+      if (selectedOption === qData.correctIndex) {
+        score++;
+      }
+
+      // Change button text
+      if (currentQ === questions.length - 1) {
+        submitBtn.textContent = "See Results";
+      } else {
+        submitBtn.textContent = "Next Question";
+      }
+    });
+
+    function showResults() {
+      quizBlock.style.display = "none";
+      resultBlock.style.display = "block";
+      finalScore.textContent = score;
+    }
+
+    // INIT
+    loadQuestion();
+
+  </script>
+</body>
+
+</html>

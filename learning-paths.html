@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learning Paths — CodePath</title>
+  <link rel="icon" type="image/x-icon" href="terminal.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root,
+    [data-theme="light"] {
+      --bg: #f5f7fa;
+      --surface: #ffffff;
+      --card: #ffffff;
+      --border: #e2e6ed;
+      --accent: #2563eb;
+      --accent2: #7c3aed;
+      --green: #059669;
+      --amber: #d97706;
+      --text: #111827;
+      --muted: #6b7280;
+      --navbar-bg: rgba(255, 255, 255, 0.93);
+      --navbar-border: #e2e6ed;
+      --shadow: rgba(0, 0, 0, 0.06);
+      --shadow-hover: rgba(0, 0, 0, 0.13);
+      --footer-bg: #1e2330;
+      --toggle-bg: #f0f2f5;
+      --toggle-border: #d1d5db;
+      --toggle-color: #374151;
+      --mono: 'Space Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0d0f14;
+      --surface: #13151c;
+      --card: #1a1d27;
+      --border: #2a2d3a;
+      --accent: #4f8ef7;
+      --accent2: #a78bfa;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --text: #e4e6f0;
+      --muted: #7b7f99;
+      --navbar-bg: rgba(13, 15, 20, 0.93);
+      --navbar-border: #2a2d3a;
+      --shadow: rgba(0, 0, 0, 0.3);
+      --shadow-hover: rgba(0, 0, 0, 0.5);
+      --footer-bg: #0a0c11;
+      --toggle-bg: #2a2d3a;
+      --toggle-border: #3a3e50;
+      --toggle-color: #e4e6f0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      line-height: 1.65;
+      transition: background .35s, color .35s;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      background: var(--navbar-bg) !important;
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--navbar-border);
+      padding: .7rem 0;
+      transition: background .35s, border-color .35s;
+    }
+
+    .navbar-brand {
+      font-family: var(--mono);
+      font-size: 1.2rem !important;
+      color: var(--text) !important;
+      letter-spacing: -.5px;
+      text-decoration: none;
+    }
+
+    .nav-link {
+      color: var(--muted) !important;
+      font-size: .875rem;
+      font-weight: 500;
+      transition: color .2s;
+      padding: .4rem .85rem !important;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--accent) !important;
+    }
+
+    .btn-nav-outline {
+      font-family: var(--mono);
+      font-size: .82rem;
+      background: transparent;
+      color: var(--text) !important;
+      border: 1px solid var(--border);
+      padding: .5rem 1.25rem;
+      border-radius: 6px;
+      transition: all .25s;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+
+    .btn-nav-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent) !important;
+    }
+
+    .btn-nav {
+      font-family: var(--mono);
+      font-size: .82rem;
+      background: var(--accent);
+      color: #fff !important;
+      border: 1px solid var(--accent);
+      padding: .5rem 1.25rem;
+      border-radius: 6px;
+      transition: all .25s;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+    }
+
+    .btn-nav:hover {
+      background: var(--accent2);
+      border-color: var(--accent2);
+    }
+
+    .logo-ring {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 700;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .theme-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--toggle-border);
+      background: var(--toggle-bg);
+      color: var(--toggle-color);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: .88rem;
+      transition: background .3s, border-color .3s, transform .25s, color .3s;
+      flex-shrink: 0;
+      outline: none;
+    }
+
+    .theme-btn:hover {
+      transform: rotate(18deg) scale(1.1);
+    }
+
+    .navbar-toggler {
+      border: 1px solid var(--border) !important;
+      padding: .3rem .55rem;
+    }
+
+    [data-theme="light"] .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%236b7280' stroke-width='2.2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+
+    [data-theme="dark"] .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%237b7f99' stroke-width='2.2' stroke-linecap='round' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+
+    @media(min-width:992px) {
+
+      .btn-nav-outline,
+      .btn-nav {
+        display: inline-block;
+      }
+    }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+      padding: 5rem 0 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(79, 142, 247, .13) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px;
+      left: -80px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(167, 139, 250, .1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: #93c5fd;
+      background: rgba(59, 130, 246, .18);
+      border: 1px solid rgba(59, 130, 246, .35);
+      border-radius: 4px;
+      padding: 3px 10px;
+      display: inline-block;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .page-hero h1 {
+      font-family: var(--mono);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .8rem;
+      line-height: 1.2;
+    }
+
+    .page-hero h1 span {
+      color: #60a5fa;
+    }
+
+    .page-hero p {
+      color: rgba(255, 255, 255, .65);
+      font-size: 1rem;
+      max-width: 540px;
+    }
+
+    /* ── FILTER ── */
+    .filter-wrap {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: .85rem 0;
+      position: sticky;
+      top: 62px;
+      z-index: 100;
+      transition: background .35s, border-color .35s;
+    }
+
+    .filter-btn {
+      font-family: var(--mono);
+      font-size: .75rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: .4rem 1.1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all .25s;
+      white-space: nowrap;
+      outline: none;
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .search-box {
+      background: var(--toggle-bg);
+      border: 1px solid var(--toggle-border);
+      color: var(--text);
+      border-radius: 20px;
+      padding: .4rem 1rem .4rem 2.4rem;
+      font-size: .85rem;
+      outline: none;
+      transition: all .3s;
+      width: 200px;
+      font-family: var(--sans);
+    }
+
+    .search-box:focus {
+      background: var(--surface);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .15);
+      width: 240px;
+    }
+
+    .search-box::placeholder {
+      color: var(--muted);
+    }
+
+    /* ── NO RESULTS ── */
+    .no-results {
+      text-align: center;
+      padding: 4rem 0;
+      display: none;
+    }
+
+    .no-results i {
+      font-size: 2.5rem;
+      color: var(--border);
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .no-results p {
+      color: var(--muted);
+    }
+
+    /* ── SECTION ── */
+    .sec-eyebrow {
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: .5rem;
+    }
+
+    .sec-title {
+      font-family: var(--mono);
+      font-size: clamp(1.4rem, 3vw, 1.9rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .7rem;
+    }
+
+    .info-banner {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.3rem 1.6rem;
+      margin-bottom: 3rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      transition: background .35s, border-color .35s;
+    }
+
+    .info-banner i {
+      color: var(--accent);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+      margin-top: .15rem;
+    }
+
+    .info-banner p {
+      font-size: .875rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .info-banner strong {
+      color: var(--text);
+    }
+
+    .section-paths {
+      padding: 4rem 0 5rem;
+    }
+
+    .path-group {
+      margin-bottom: 4rem;
+    }
+
+    .path-group-header {
+      margin-bottom: 1.8rem;
+    }
+
+    /* ── PATH CARD ── */
+    .path-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      height: 100%;
+      box-shadow: 0 2px 12px var(--shadow);
+      transition: transform .3s, border-color .3s, box-shadow .3s, background .35s;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .path-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px var(--shadow-hover);
+      border-color: rgba(79, 142, 247, .3);
+    }
+
+    .path-top-stripe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .path-card:hover .path-top-stripe {
+      opacity: 1;
+    }
+
+    .path-body {
+      padding: 1.7rem 1.6rem 1.2rem;
+      flex: 1;
+    }
+
+    .path-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.1rem;
+    }
+
+    .pi-blue {
+      background: rgba(37, 99, 235, .1);
+      color: var(--accent);
+    }
+
+    .pi-purple {
+      background: rgba(124, 58, 237, .1);
+      color: var(--accent2);
+    }
+
+    .pi-amber {
+      background: rgba(217, 119, 6, .1);
+      color: var(--amber);
+    }
+
+    .pi-cyan {
+      background: rgba(6, 182, 212, .1);
+      color: #06b6d4;
+    }
+
+    .pi-green {
+      background: rgba(5, 150, 105, .1);
+      color: var(--green);
+    }
+
+    [data-theme="dark"] .pi-blue {
+      background: rgba(79, 142, 247, .15);
+    }
+
+    [data-theme="dark"] .pi-purple {
+      background: rgba(167, 139, 250, .15);
+    }
+
+    [data-theme="dark"] .pi-amber {
+      background: rgba(251, 191, 36, .12);
+    }
+
+    [data-theme="dark"] .pi-cyan {
+      background: rgba(6, 182, 212, .12);
+    }
+
+    [data-theme="dark"] .pi-green {
+      background: rgba(52, 211, 153, .15);
+    }
+
+    .path-title {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .4rem;
+    }
+
+    .path-desc {
+      font-size: .875rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      line-height: 1.6;
+    }
+
+    .path-badge {
+      font-family: var(--mono);
+      font-size: .64rem;
+      padding: 2px 9px;
+      border-radius: 4px;
+      letter-spacing: .5px;
+      display: inline-block;
+      margin-right: .35rem;
+      margin-bottom: .6rem;
+    }
+
+    .b-beginner {
+      background: rgba(52, 211, 153, .12);
+      color: var(--green);
+      border: 1px solid rgba(52, 211, 153, .25);
+    }
+
+    .b-intermediate {
+      background: rgba(251, 191, 36, .12);
+      color: var(--amber);
+      border: 1px solid rgba(251, 191, 36, .25);
+    }
+
+    [data-theme="light"] .b-beginner {
+      background: rgba(5, 150, 105, .08);
+      color: #059669;
+      border-color: rgba(5, 150, 105, .2);
+    }
+
+    [data-theme="light"] .b-intermediate {
+      background: rgba(217, 119, 6, .08);
+      color: #d97706;
+      border-color: rgba(217, 119, 6, .2);
+    }
+
+    .path-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      font-size: .78rem;
+      color: var(--muted);
+      margin-bottom: .9rem;
+    }
+
+    .path-meta i {
+      color: var(--accent);
+      margin-right: .25rem;
+    }
+
+    .path-topics {
+      font-size: .74rem;
+      color: var(--muted);
+    }
+
+    .path-topics i {
+      margin-right: .3rem;
+    }
+
+    /* progress bar on card */
+    .path-progress-wrap {
+      margin: .9rem 0 0;
+    }
+
+    .path-progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: .72rem;
+      color: var(--muted);
+      font-family: var(--mono);
+      margin-bottom: .35rem;
+    }
+
+    .path-progress-bar-bg {
+      height: 5px;
+      background: var(--border);
+      border-radius: 3px;
+    }
+
+    .path-progress-bar-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .5s ease;
+    }
+
+    .path-footer {
+      padding: 1.1rem 1.6rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: border-color .35s;
+    }
+
+    .btn-path {
+      font-family: var(--mono);
+      font-size: .76rem;
+      background: var(--accent);
+      color: #fff !important;
+      border: none;
+      padding: .5rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all .25s;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .btn-path:hover {
+      background: var(--accent2);
+      transform: translateY(-1px);
+    }
+
+    .path-level {
+      font-size: .74rem;
+      color: var(--muted);
+      font-family: var(--mono);
+    }
+
+    /* ── MODAL / DRAWER ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .6);
+      backdrop-filter: blur(4px);
+      z-index: 1050;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .path-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(580px, 100vw);
+      height: 100vh;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      z-index: 1060;
+      transform: translateX(100%);
+      transition: transform .35s cubic-bezier(.4, 0, .2, 1);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .path-drawer.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      padding: 1.6rem 1.8rem 1.2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--surface);
+      z-index: 2;
+    }
+
+    .drawer-close {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--toggle-bg);
+      color: var(--text);
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      font-size: .9rem;
+      outline: none;
+      transition: background .2s, transform .2s;
+    }
+
+    .drawer-close:hover {
+      background: var(--border);
+      transform: rotate(90deg);
+    }
+
+    .drawer-title {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .3rem;
+    }
+
+    .drawer-meta {
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
+    .drawer-body {
+      padding: 1.6rem 1.8rem;
+      flex: 1;
+    }
+
+    .drawer-progress-wrap {
+      margin-bottom: 1.6rem;
+    }
+
+    .drawer-progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: .75rem;
+      color: var(--muted);
+      font-family: var(--mono);
+      margin-bottom: .4rem;
+    }
+
+    .drawer-progress-bar-bg {
+      height: 7px;
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    .drawer-progress-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width .4s ease;
+    }
+
+    /* topic sections inside drawer */
+    .topic-section {
+      margin-bottom: 1.8rem;
+    }
+
+    .topic-section-title {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: .8rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .topic-section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .topic-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .9rem;
+      padding: .75rem;
+      border-radius: 8px;
+      transition: background .2s;
+      margin-bottom: .3rem;
+    }
+
+    .topic-item:hover {
+      background: var(--card);
+    }
+
+    .topic-item.done .topic-name {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .topic-item.done .topic-check {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .topic-item.done .topic-check i {
+      opacity: 1;
+    }
+
+    .topic-check {
+      width: 20px;
+      height: 20px;
+      border-radius: 5px;
+      border: 2px solid var(--border);
+      background: transparent;
+      flex-shrink: 0;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      transition: all .2s;
+      margin-top: 1px;
+    }
+
+    .topic-check i {
+      font-size: .65rem;
+      color: #fff;
+      opacity: 0;
+      transition: opacity .2s;
+    }
+
+    .topic-info {
+      flex: 1;
+    }
+
+    .topic-name {
+      font-weight: 600;
+      font-size: .875rem;
+      color: var(--text);
+      margin-bottom: .15rem;
+    }
+
+    .topic-desc {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-bottom: .4rem;
+    }
+
+    .topic-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem;
+    }
+
+    .topic-link {
+      font-family: var(--mono);
+      font-size: .68rem;
+      color: var(--accent);
+      text-decoration: none;
+      background: rgba(37, 99, 235, .08);
+      border: 1px solid rgba(37, 99, 235, .15);
+      padding: 2px 8px;
+      border-radius: 4px;
+      transition: all .2s;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+    }
+
+    .topic-link:hover {
+      background: rgba(37, 99, 235, .18);
+      border-color: var(--accent);
+    }
+
+    [data-theme="dark"] .topic-link {
+      background: rgba(79, 142, 247, .1);
+      border-color: rgba(79, 142, 247, .2);
+    }
+
+    [data-theme="dark"] .topic-link:hover {
+      background: rgba(79, 142, 247, .2);
+    }
+
+    .topic-link-yt {
+      color: #ef4444;
+      background: rgba(239, 68, 68, .08);
+      border-color: rgba(239, 68, 68, .15);
+    }
+
+    [data-theme="dark"] .topic-link-yt {
+      background: rgba(239, 68, 68, .1);
+      border-color: rgba(239, 68, 68, .2);
+    }
+
+    .topic-link-yt:hover {
+      background: rgba(239, 68, 68, .2) !important;
+      border-color: #ef4444 !important;
+      color: #ef4444 !important;
+    }
+
+    /* capstone */
+    .capstone-box {
+      background: linear-gradient(135deg, rgba(37, 99, 235, .1), rgba(124, 58, 237, .1));
+      border: 1px solid rgba(37, 99, 235, .2);
+      border-radius: 12px;
+      padding: 1.4rem;
+      margin-top: 1.5rem;
+    }
+
+    [data-theme="dark"] .capstone-box {
+      background: linear-gradient(135deg, rgba(79, 142, 247, .1), rgba(167, 139, 250, .1));
+      border-color: rgba(79, 142, 247, .2);
+    }
+
+    .capstone-box h6 {
+      font-family: var(--mono);
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .4rem;
+    }
+
+    .capstone-box p {
+      font-size: .82rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .btn-reset {
+      font-family: var(--mono);
+      font-size: .72rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: .35rem .9rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all .2s;
+      outline: none;
+    }
+
+    .btn-reset:hover {
+      border-color: #ef4444;
+      color: #ef4444;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .section-how {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 5rem 0;
+      transition: background .35s, border-color .35s;
+    }
+
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem 1.8rem;
+      height: 100%;
+      box-shadow: 0 2px 12px var(--shadow);
+    }
+
+    .step-num {
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--accent);
+      background: rgba(37, 99, 235, .09);
+      border: 1px solid rgba(37, 99, 235, .2);
+      border-radius: 5px;
+      padding: 4px 10px;
+      display: inline-block;
+      margin-bottom: .8rem;
+    }
+
+    [data-theme="dark"] .step-num {
+      background: rgba(79, 142, 247, .12);
+      border-color: rgba(79, 142, 247, .25);
+    }
+
+    .step-title {
+      font-family: var(--mono);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: .45rem;
+    }
+
+    .step-desc {
+      font-size: .87rem;
+      color: var(--muted);
+    }
+
+    /* ── CTA ── */
+    .section-cta {
+      padding: 5rem 0;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, #1d4ed8 0%, #1e1b4b 55%, #4f46e5 100%);
+      border: 1px solid rgba(99, 102, 241, .3);
+      border-radius: 18px;
+      padding: 4rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(99, 102, 241, .2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-box h3 {
+      font-family: var(--mono);
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .7rem;
+    }
+
+    .cta-box p {
+      color: rgba(255, 255, 255, .62);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .btn-cta {
+      font-family: var(--mono);
+      font-size: .85rem;
+      background: #fff;
+      color: #1e3a8a !important;
+      border: none;
+      padding: .8rem 2.2rem;
+      border-radius: 6px;
+      letter-spacing: .5px;
+      transition: all .25s;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: 700;
+    }
+
+    .btn-cta:hover {
+      background: #eff6ff;
+      transform: translateY(-2px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--footer-bg);
+      border-top: 1px solid rgba(255, 255, 255, .06);
+      padding: 3rem 0 2rem;
+    }
+
+    .foot-brand {
+      font-family: var(--mono);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: .4rem;
+    }
+
+    .foot-sub {
+      color: rgba(255, 255, 255, .42);
+      font-size: .82rem;
+    }
+
+    .foot-heading {
+      font-size: .73rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255, 255, 255, .32);
+      margin-bottom: .9rem;
+      font-family: var(--mono);
+    }
+
+    .foot-links {
+      list-style: none;
+      padding: 0;
+    }
+
+    .foot-links li {
+      margin-bottom: .45rem;
+    }
+
+    .foot-links a {
+      color: rgba(255, 255, 255, .52);
+      font-size: .875rem;
+      text-decoration: none;
+      transition: color .2s;
+    }
+
+    .foot-links a:hover {
+      color: #fff;
+    }
+
+    .foot-divider {
+      border-color: rgba(255, 255, 255, .08);
+      margin: 1.5rem 0;
+    }
+
+    .foot-copy {
+      font-size: .77rem;
+      color: rgba(255, 255, 255, .28);
+    }
+
+    .social-icon {
+      color: rgba(255, 255, 255, .38);
+      font-size: 1.15rem;
+      transition: color .2s;
+      text-decoration: none;
+    }
+
+    .social-icon:hover {
+      color: #fff;
+    }
+
+    @media(max-width:768px) {
+      .cta-box {
+        padding: 2.5rem 1.5rem;
+      }
+
+      .hero-stats {
+        gap: 1.5rem;
+      }
+
+      .path-drawer {
+        width: 100vw;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg sticky-top">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+        <div class="logo-ring">CP</div>CodePath
+      </a>
+      <div class="d-flex align-items-center gap-2 ms-auto d-lg-none">
+        <button class="theme-btn" id="themeToggleMob" aria-label="Toggle theme"><i class="fas fa-moon"></i></button>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link active" href="learning-paths.html">Learning Paths</a></li>
+          <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="daily-quiz.html">Daily Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item d-none d-lg-flex align-items-center ms-2">
+          <button class="theme-btn" id="themeToggleDesk" aria-label="Toggle theme"><i
+                class="fas fa-moon"></i></button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container position-relative" style="z-index:1;">
+      <h1>Learning <span>Paths</span></h1>
+      <p>Curated, step-by-step web technology roadmaps built for BCA students. Pick a path, check off topics, build a
+        real project — and go from zero to job-ready.</p>
+    </div>
+  </section>
+
+  <!-- FILTER -->
+  <div class="filter-wrap">
+    <div class="container">
+      <div class="d-flex align-items-center gap-2 overflow-auto pb-1" style="scrollbar-width:none;">
+        <div class="position-relative flex-shrink-0">
+          <i class="fas fa-search position-absolute top-50 translate-middle-y"
+            style="left:12px;font-size:.78rem;color:var(--muted);pointer-events:none;z-index:1;"></i>
+          <input type="text" class="search-box" id="searchInput" placeholder="Search paths…" autocomplete="off">
+        </div>
+        <button class="filter-btn active" data-filter="all">All Paths</button>
+        <button class="filter-btn" data-filter="webdev">Web Dev</button>
+        <button class="filter-btn" data-filter="database">Databases</button>
+        <button class="filter-btn" data-filter="tools">Dev Tools</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATHS -->
+  <section class="section-paths">
+    <div class="container">
+
+      <div class="info-banner">
+        <i class="fas fa-info-circle"></i>
+        <p><strong>How to use:</strong> Click <strong>Open Path</strong> on any card to see the full topic checklist
+          with resource links. Check off topics as you complete them — your progress is saved automatically in your
+          browser. Complete the capstone project at the end to add it to your portfolio.</p>
+      </div>
+
+      <!-- WEB DEV GROUP -->
+      <div class="path-group" data-category="webdev">
+        <div class="path-group-header">
+          <div class="sec-title">Web Development</div>
+        </div>
+        <div class="row g-4">
+
+          <!-- HTML & CSS -->
+          <div class="col-lg-4 col-md-6">
+            <div class="path-card">
+              <div class="path-top-stripe"></div>
+              <div class="path-body">
+                <div class="path-icon pi-blue"><i class="fab fa-html5"></i></div>
+                <div class="path-title">HTML & CSS Foundations</div>
+                <div class="path-desc">Build the visual backbone of every website. Learn semantic HTML5, modern CSS3,
+                  flexbox, grid, and responsive design from scratch.</div>
+                <span class="path-badge b-beginner">Beginner</span>
+                <div class="path-meta">
+                  <span><i class="fas fa-clock"></i>4 Weeks</span>
+                  <span><i class="fas fa-list-check"></i>18 Topics</span>
+                  <span><i class="fas fa-code"></i>1 Project</span>
+                </div>
+                <div class="path-topics"><i class="fas fa-tag"></i>HTML5 · CSS3 · Flexbox · Grid · Responsive</div>
+                <div class="path-progress-wrap">
+                  <div class="path-progress-label"><span>Progress</span><span class="pct-label"
+                      data-id="html-css">0%</span></div>
+                  <div class="path-progress-bar-bg">
+                    <div class="path-progress-bar-fill" data-id="html-css" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="path-footer">
+                <button class="btn-path" onclick="openDrawer('html-css')">Open Path <i
+                    class="fas fa-arrow-right ms-1"></i></button>
+                <span class="path-level">Beginner</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- JAVASCRIPT -->
+          <div class="col-lg-4 col-md-6">
+            <div class="path-card">
+              <div class="path-top-stripe"></div>
+              <div class="path-body">
+                <div class="path-icon pi-amber"><i class="fab fa-js"></i></div>
+                <div class="path-title">JavaScript Essentials</div>
+                <div class="path-desc">Go from JS newbie to confident front-end developer. DOM manipulation, events,
+                  fetch API, and ES6+ features you'll use every single day.</div>
+                <span class="path-badge b-beginner">Beginner</span>
+                <div class="path-meta">
+                  <span><i class="fas fa-clock"></i>6 Weeks</span>
+                  <span><i class="fas fa-list-check"></i>20 Topics</span>
+                  <span><i class="fas fa-code"></i>2 Projects</span>
+                </div>
+                <div class="path-topics"><i class="fas fa-tag"></i>ES6 · DOM · Events · Async/Await · Fetch API</div>
+                <div class="path-progress-wrap">
+                  <div class="path-progress-label"><span>Progress</span><span class="pct-label"
+                      data-id="javascript">0%</span></div>
+                  <div class="path-progress-bar-bg">
+                    <div class="path-progress-bar-fill" data-id="javascript" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="path-footer">
+                <button class="btn-path" onclick="openDrawer('javascript')">Open Path <i
+                    class="fas fa-arrow-right ms-1"></i></button>
+                <span class="path-level">Beginner</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BOOTSTRAP -->
+          <div class="col-lg-4 col-md-6">
+            <div class="path-card">
+              <div class="path-top-stripe"></div>
+              <div class="path-body">
+                <div class="path-icon pi-purple"><i class="fab fa-bootstrap"></i></div>
+                <div class="path-title">Bootstrap 5 Mastery</div>
+                <div class="path-desc">Build polished, mobile-first interfaces fast. Grid system, components, utilities,
+                  and theming with CSS variables — all covered in depth.</div>
+                <span class="path-badge b-intermediate">Intermediate</span>
+                <div class="path-meta">
+                  <span><i class="fas fa-clock"></i>3 Weeks</span>
+                  <span><i class="fas fa-list-check"></i>14 Topics</span>
+                  <span><i class="fas fa-code"></i>2 Projects</span>
+                </div>
+                <div class="path-topics"><i class="fas fa-tag"></i>Grid · Components · Utilities · Forms · Theming</div>
+                <div class="path-progress-wrap">
+                  <div class="path-progress-label"><span>Progress</span><span class="pct-label"
+                      data-id="bootstrap">0%</span></div>
+                  <div class="path-progress-bar-bg">
+                    <div class="path-progress-bar-fill" data-id="bootstrap" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="path-footer">
+                <button class="btn-path" onclick="openDrawer('bootstrap')">Open Path <i
+                    class="fas fa-arrow-right ms-1"></i></button>
+                <span class="path-level">Intermediate</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DATABASE GROUP -->
+      <div class="path-group" data-category="database">
+        <div class="path-group-header">
+          <div class="sec-title">Databases</div>
+        </div>
+        <div class="row g-4">
+
+          <!-- SQL -->
+          <div class="col-lg-4 col-md-6">
+            <div class="path-card">
+              <div class="path-top-stripe"></div>
+              <div class="path-body">
+                <div class="path-icon pi-blue"><i class="fas fa-database"></i></div>
+                <div class="path-title">SQL from Zero to Hero</div>
+                <div class="path-desc">Learn to query, filter, join, and aggregate data confidently. MySQL fundamentals
+                  through advanced queries, stored procedures, and normalisation.</div>
+                <span class="path-badge b-beginner">Beginner</span>
+                <div class="path-meta">
+                  <span><i class="fas fa-clock"></i>5 Weeks</span>
+                  <span><i class="fas fa-list-check"></i>18 Topics</span>
+                  <span><i class="fas fa-code"></i>2 Projects</span>
+                </div>
+                <div class="path-topics"><i class="fas fa-tag"></i>MySQL · Joins · Aggregation · Subqueries ·
+                  Normalisation</div>
+                <div class="path-progress-wrap">
+                  <div class="path-progress-label"><span>Progress</span><span class="pct-label" data-id="sql">0%</span>
+                  </div>
+                  <div class="path-progress-bar-bg">
+                    <div class="path-progress-bar-fill" data-id="sql" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="path-footer">
+                <button class="btn-path" onclick="openDrawer('sql')">Open Path <i
+                    class="fas fa-arrow-right ms-1"></i></button>
+                <span class="path-level">Beginner</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DEV TOOLS GROUP -->
+      <div class="path-group" data-category="tools">
+        <div class="path-group-header">
+          <div class="sec-title">Dev Tools & Workflow</div>
+        </div>
+        <div class="row g-4">
+
+          <!-- GIT -->
+          <div class="col-lg-4 col-md-6">
+            <div class="path-card">
+              <div class="path-top-stripe"></div>
+              <div class="path-body">
+                <div class="path-icon pi-purple"><i class="fab fa-git-alt"></i></div>
+                <div class="path-title">Git & GitHub Essentials</div>
+                <div class="path-desc">Version control is non-negotiable. From git init to branching, merging, pull
+                  requests, and collaborating on GitHub like a professional dev.</div>
+                <span class="path-badge b-beginner">Beginner</span>
+                <div class="path-meta">
+                  <span><i class="fas fa-clock"></i>2 Weeks</span>
+                  <span><i class="fas fa-list-check"></i>12 Topics</span>
+                  <span><i class="fas fa-code"></i>1 Project</span>
+                </div>
+                <div class="path-topics"><i class="fas fa-tag"></i>Git · GitHub · Branches · Pull Requests ·
+                  Collaboration</div>
+                <div class="path-progress-wrap">
+                  <div class="path-progress-label"><span>Progress</span><span class="pct-label" data-id="git">0%</span>
+                  </div>
+                  <div class="path-progress-bar-bg">
+                    <div class="path-progress-bar-fill" data-id="git" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="path-footer">
+                <button class="btn-path" onclick="openDrawer('git')">Open Path <i
+                    class="fas fa-arrow-right ms-1"></i></button>
+                <span class="path-level">Beginner</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- CLI -->
+          <div class="col-lg-4 col-md-6">
+            <div class="path-card">
+              <div class="path-top-stripe"></div>
+              <div class="path-body">
+                <div class="path-icon pi-cyan"><i class="fas fa-terminal"></i></div>
+                <div class="path-title">Command Line & Linux</div>
+                <div class="path-desc">Every developer needs the terminal. Navigate the file system, manage processes,
+                  write shell scripts, and use SSH — skills that make you look like a pro immediately.</div>
+                <span class="path-badge b-beginner">Beginner</span>
+                <div class="path-meta">
+                  <span><i class="fas fa-clock"></i>2 Weeks</span>
+                  <span><i class="fas fa-list-check"></i>10 Topics</span>
+                  <span><i class="fas fa-code"></i>1 Project</span>
+                </div>
+                <div class="path-topics"><i class="fas fa-tag"></i>CLI · Bash · File System · Shell Scripts · SSH</div>
+                <div class="path-progress-wrap">
+                  <div class="path-progress-label"><span>Progress</span><span class="pct-label" data-id="cli">0%</span>
+                  </div>
+                  <div class="path-progress-bar-bg">
+                    <div class="path-progress-bar-fill" data-id="cli" style="width:0%"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="path-footer">
+                <button class="btn-path" onclick="openDrawer('cli')">Open Path <i
+                    class="fas fa-arrow-right ms-1"></i></button>
+                <span class="path-level">Beginner</span>
+              </div>
+            </div>
+          </div>
+
+      </div>
+
+      <div id="noResults" class="no-results">
+        <i class="fas fa-search"></i>
+        <p>No paths match your search. Try a different keyword or category.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ════════════ PATH DRAWER ════════════ -->
+  <div class="modal-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+  <div class="path-drawer" id="pathDrawer">
+    <div class="drawer-header">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <button class="drawer-close" onclick="closeDrawer()"><i class="fas fa-times"></i></button>
+        <button class="btn-reset" onclick="resetProgress()"><i class="fas fa-rotate-left me-1"></i>Reset</button>
+      </div>
+      <div class="drawer-title" id="drawerTitle">Path Name</div>
+      <div class="drawer-meta" id="drawerMeta"></div>
+      <div class="drawer-progress-wrap mt-3">
+        <div class="drawer-progress-label">
+          <span>Your Progress</span>
+          <span id="drawerPct">0 / 0 topics</span>
+        </div>
+        <div class="drawer-progress-bar-bg">
+          <div class="drawer-progress-bar-fill" id="drawerBar" style="width:0%"></div>
+        </div>
+      </div>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="section-how">
+    <div class="container">
+      <div class="text-center mb-5">
+        <div class="sec-title">How Learning Paths Work</div>
+        <p style="color:var(--muted);font-size:.95rem;max-width:480px;margin:0 auto;">Four steps from picking a path to
+          landing an interview call.</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+          <div class="step-card">
+            <div class="step-num">01</div>
+            <div class="step-title">Pick a Path</div>
+            <div class="step-desc">Choose a path matching your current level. Each card shows difficulty, estimated
+              weeks, and the technologies you'll learn.</div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="step-card">
+            <div class="step-num">02</div>
+            <div class="step-title">Work the Checklist</div>
+            <div class="step-desc">Open the path and tick off topics one by one. Every topic has curated links — video,
+              article, or official docs. Your progress saves automatically.</div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="step-card">
+            <div class="step-num">03</div>
+            <div class="step-title">Build the Project</div>
+            <div class="step-desc">Every path ends with a real capstone project. Push it to GitHub, write a README, and
+              add it to your portfolio for recruiters to see.</div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+          <div class="step-card">
+            <div class="step-num">04</div>
+            <div class="step-title">Stack & Repeat</div>
+            <div class="step-desc">Paths are designed to build on each other. HTML → JS → Bootstrap → full project. Each
+              one completed makes the next one faster.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-cta">
+    <div class="container">
+      <div class="cta-box">
+        <h3>Start Your First Path Today</h3>
+        <p>Everything is free. No account required to start — create one to sync your progress across devices.</p>
+        <a href="signup.html" class="btn-cta">Create Free Account <i class="fas fa-arrow-right ms-1"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <div class="foot-brand">CodePath</div>
+          <div class="foot-sub">Heaven for Programmers.<br>Built by BCA students, for everyone.</div>
+        </div>
+        <div class="col-6 col-lg-2">
+          <div class="foot-heading">Learn</div>
+          <ul class="foot-links">
+            <li><a href="learning-paths.html">Learning Paths</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li><a href="daily-quiz.html">Daily Quiz</a></li>
+            </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <div class="foot-heading">Company</div>
+          <ul class="foot-links">
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <div class="foot-heading">Connect</div>
+          <div class="d-flex gap-3">
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="foot-divider">
+      <div class="foot-copy">© 2026 CodePath · BCA 4th Semester Mini Project · All rights reserved</div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // ══════════════════════════════════════
+    // THEME
+    // ══════════════════════════════════════
+    const root = document.documentElement;
+    const saved = localStorage.getItem('cp-theme') || 'dark';
+    root.setAttribute('data-theme', saved);
+    function syncIcons(t) { document.querySelectorAll('.theme-btn i').forEach(i => i.className = t === 'dark' ? 'fas fa-sun' : 'fas fa-moon'); }
+    syncIcons(saved);
+    function toggleTheme() { const n = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'; root.setAttribute('data-theme', n); localStorage.setItem('cp-theme', n); syncIcons(n); }
+    document.getElementById('themeToggleMob').addEventListener('click', toggleTheme);
+    document.getElementById('themeToggleDesk').addEventListener('click', toggleTheme);
+
+    // ══════════════════════════════════════
+    // FILTER
+    // ══════════════════════════════════════
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const f = btn.dataset.filter;
+        document.querySelectorAll('.path-group').forEach(g => {
+          g.style.display = (f === 'all' || g.dataset.category === f) ? 'block' : 'none';
+        });
+      });
+    });
+
+    // ══════════════════════════════════════
+    // PATH DATA
+    // ══════════════════════════════════════
+    const PATHS = {
+
+      'html-css': {
+        title: 'HTML & CSS Foundations',
+        meta: '4 Weeks · 18 Topics · 1 Capstone Project',
+        sections: [
+          {
+            title: 'HTML Basics',
+            topics: [
+              { id: 'hc1', name: 'Introduction to HTML & How Browsers Work', desc: 'Understand what HTML is, the role of a browser, and how a webpage is parsed and rendered.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=qz0aGYrrlhU', yt: true }] },
+              { id: 'hc2', name: 'HTML Document Structure & Tags', desc: 'DOCTYPE, html, head, body — the skeleton of every webpage. Learn semantic vs non-semantic elements.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/Getting_started' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=UB1O30fR-EE', yt: true }] },
+              { id: 'hc3', name: 'Text, Links & Images', desc: 'Headings, paragraphs, lists, anchor tags, and the img element. The building blocks of every page.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/HTML/Introduction_to_HTML/HTML_text_fundamentals' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=PlxWf493en4', yt: true }] },
+              { id: 'hc4', name: 'HTML Forms & Input Elements', desc: 'Build forms with input types, labels, buttons, select, textarea, and form validation attributes.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/Forms' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=fNcJuPIZ2WE', yt: true }] },
+              { id: 'hc5', name: 'Semantic HTML5 Elements', desc: 'header, nav, main, article, section, aside, footer — why they matter for accessibility and SEO.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Glossary/Semantics' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=kX3TfdUqpuU', yt: true }] },
+            ]
+          },
+          {
+            title: 'CSS Fundamentals',
+            topics: [
+              { id: 'hc6', name: 'CSS Syntax, Selectors & Specificity', desc: 'How CSS rules are written, types of selectors (class, id, attribute, pseudo), and how specificity is calculated.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=1Rs2ND1ryYc', yt: true }] },
+              { id: 'hc7', name: 'The Box Model', desc: 'margin, border, padding, content — understanding the box model is fundamental to every layout you will ever build.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/The_box_model' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=rIO5326FgPE', yt: true }] },
+              { id: 'hc8', name: 'Colors, Typography & Units', desc: 'Color formats (hex, rgb, hsl), Google Fonts, font properties, and CSS units — px, em, rem, %, vw, vh.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/CSS/Styling_text' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=qNtJ5NY3-Lg', yt: true }] },
+              { id: 'hc9', name: 'Positioning & Display', desc: 'static, relative, absolute, fixed, sticky positioning. Block, inline, inline-block, and the display property.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Positioning' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=jx5jmI0UlXU', yt: true }] },
+            ]
+          },
+          {
+            title: 'Layouts',
+            topics: [
+              { id: 'hc10', name: 'Flexbox', desc: 'The modern way to build one-dimensional layouts. justify-content, align-items, flex-wrap, flex-grow — master them all.', links: [{ label: 'CSS-Tricks Guide', url: 'https://css-tricks.com/snippets/css/a-guide-to-flexbox/' }, { label: 'Flexbox Froggy', url: 'https://flexboxfroggy.com/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=fYq5PXgSsbE', yt: true }] },
+              { id: 'hc11', name: 'CSS Grid', desc: 'Two-dimensional layouts made easy. grid-template-columns, grid-template-rows, gap, grid-area, and auto-fit/auto-fill.', links: [{ label: 'CSS-Tricks Guide', url: 'https://css-tricks.com/snippets/css/complete-guide-grid/' }, { label: 'Grid Garden', url: 'https://cssgridgarden.com/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=9zBsdzdE4sM', yt: true }] },
+              { id: 'hc12', name: 'Responsive Design & Media Queries', desc: 'Make your layouts work on every screen. Breakpoints, mobile-first design, and the viewport meta tag.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Responsive_Design' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=srvUrASNj0s', yt: true }] },
+            ]
+          },
+          {
+            title: 'Styling & Polish',
+            topics: [
+              { id: 'hc13', name: 'CSS Variables (Custom Properties)', desc: 'Define reusable values with --variable-name and use var(). The foundation of themeable, maintainable CSS.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=oZPR_78wCnY', yt: true }] },
+              { id: 'hc14', name: 'Transitions & Animations', desc: 'Add life to your interfaces with CSS transition, animation, @keyframes, and timing functions.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=zHUpx90NerM', yt: true }] },
+              { id: 'hc15', name: 'Pseudo-classes & Pseudo-elements', desc: ':hover, :focus, :nth-child(), ::before, ::after — powerful selectors for styling without extra HTML.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Pseudo-classes_and_pseudo-elements' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=0VDx1570X3U', yt: true }] },
+              { id: 'hc16', name: 'CSS Best Practices & Organisation', desc: 'BEM methodology, file organisation, avoiding common CSS pitfalls, and writing maintainable stylesheets.', links: [{ label: 'BEM Guide', url: 'https://getbem.com/introduction/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=er1JEDuPbZQ', yt: true }] },
+            ]
+          },
+          {
+            title: 'Capstone Project',
+            topics: [
+              { id: 'hc17', name: 'Capstone: Personal Portfolio Website', desc: 'Build a fully responsive personal portfolio with a hero section, about, projects grid, and contact form. Push to GitHub Pages.', links: [{ label: 'GitHub Pages Docs', url: 'https://docs.github.com/en/pages' }, { label: 'Inspiration', url: 'https://github.com/chetanverma16/react-portfolio-template' }] },
+            ]
+          }
+        ]
+      },
+
+      'javascript': {
+        title: 'JavaScript Essentials',
+        meta: '6 Weeks · 20 Topics · 2 Capstone Projects',
+        sections: [
+          {
+            title: 'JS Fundamentals',
+            topics: [
+              { id: 'js1', name: 'Variables, Data Types & Operators', desc: 'var, let, const — when to use which. Primitive types, type coercion, and all the operators you need.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/First_steps/Variables' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=W6NZfCO5SIk', yt: true }] },
+              { id: 'js2', name: 'Control Flow: if, switch, loops', desc: 'Conditionals, ternary operators, for/while/for-of/for-in loops — controlling what your code does and when.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/conditionals' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=IsG4Xd6LlsM', yt: true }] },
+              { id: 'js3', name: 'Functions & Scope', desc: 'Function declarations vs expressions vs arrow functions. Scope, closures, hoisting, and the call stack.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Functions' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=gigtS_5KOqo', yt: true }] },
+              { id: 'js4', name: 'Arrays & Array Methods', desc: 'map, filter, reduce, find, forEach, sort — the toolkit for working with lists of data in JS.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=R8rmfD9Y5-c', yt: true }] },
+              { id: 'js5', name: 'Objects & Destructuring', desc: 'Creating and manipulating objects. Destructuring assignment for arrays and objects. Spread and rest operators.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Working_with_Objects' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=NIq3qLaHCIs', yt: true }] },
+            ]
+          },
+          {
+            title: 'The DOM',
+            topics: [
+              { id: 'js6', name: 'DOM Selection & Traversal', desc: 'querySelector, getElementById, getElementsByClassName. Parent, child, and sibling traversal. The DOM tree.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=5fb2aPlgoys', yt: true }] },
+              { id: 'js7', name: 'DOM Manipulation', desc: 'Creating, inserting, modifying, and removing elements. innerHTML vs textContent vs createElement.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Manipulating_documents' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=y17RuWkWdn8', yt: true }] },
+              { id: 'js8', name: 'Events & Event Listeners', desc: 'addEventListener, event bubbling, event delegation, preventDefault, stopPropagation. Build interactive UIs.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=XF1_MlZ5l6M', yt: true }] },
+              { id: 'js9', name: 'Forms & Input Handling', desc: 'Reading form values, real-time validation, handling submit events, and preventing default form behaviour.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=In0nB0ABaUk', yt: true }] },
+            ]
+          },
+          {
+            title: 'Modern JavaScript (ES6+)',
+            topics: [
+              { id: 'js10', name: 'ES6+ Syntax: Template Literals, Classes, Modules', desc: 'Template strings, class keyword, import/export — the modern JS features used in every codebase today.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=NCwa_xi0Uuc', yt: true }] },
+              { id: 'js11', name: 'Promises & Async/Await', desc: 'Why asynchronous code matters. Callbacks → Promises → async/await. Writing clean async logic without callback hell.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=PoRJizFvM7s', yt: true }] },
+              { id: 'js12', name: 'Fetch API & Working with REST APIs', desc: 'Make HTTP requests with fetch. Handle JSON responses, POST data, and manage loading/error states.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=cuEtnrL9-H0', yt: true }] },
+              { id: 'js13', name: 'localStorage & sessionStorage', desc: 'Persist data in the browser. Read, write, and delete from Web Storage — great for user preferences and small data.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=AUOzvFzdIk4', yt: true }] },
+            ]
+          },
+          {
+            title: 'Debugging & Tooling',
+            topics: [
+              { id: 'js14', name: 'Browser DevTools for JavaScript', desc: 'Using the Console, Sources tab, and Debugger to find and fix bugs. console.log, breakpoints, and the call stack.', links: [{ label: 'Chrome DevTools', url: 'https://developer.chrome.com/docs/devtools/javascript/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=AkmBSAVgMeQ', yt: true }] },
+              { id: 'js15', name: 'Error Handling: try/catch/finally', desc: 'Gracefully handle runtime errors. Custom errors, the Error object, and defensive programming patterns.', links: [{ label: 'MDN Docs', url: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=blBoIyNhGvY', yt: true }] },
+            ]
+          },
+          {
+            title: 'Capstone Projects',
+            topics: [
+              { id: 'js16', name: 'Capstone 1: To-Do App with localStorage', desc: 'Build a CRUD to-do list. Add, complete, delete tasks. Persist data in localStorage. Style it with your own CSS.', links: [{ label: 'Tutorial Guide', url: 'https://www.freecodecamp.org/news/learn-crud-operations-in-javascript-by-building-todo-app/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=G1eW3Oi6uoc', yt: true }] },
+              { id: 'js17', name: 'Capstone 2: Weather App using OpenWeatherMap API', desc: 'Fetch live weather data for any city. Display temperature, conditions, and icons. Handle loading and error states.', links: [{ label: 'OpenWeatherMap API', url: 'https://openweathermap.org/api' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=WZNG8UomjSI', yt: true }] },
+            ]
+          }
+        ]
+      },
+
+      'bootstrap': {
+        title: 'Bootstrap 5 Mastery',
+        meta: '3 Weeks · 14 Topics · 2 Capstone Projects',
+        sections: [
+          {
+            title: 'Getting Started',
+            topics: [
+              { id: 'bs1', name: 'What is Bootstrap? Setup & CDN', desc: 'Why Bootstrap exists, how it compares to raw CSS, and how to add it to a project via CDN or npm.', links: [{ label: 'Bootstrap Docs', url: 'https://getbootstrap.com/docs/5.3/getting-started/introduction/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=Jyvffr3aCp0', yt: true }] },
+              { id: 'bs2', name: 'The Grid System', desc: '12-column grid, breakpoints (sm/md/lg/xl/xxl), col classes, offsets, and responsive stacking — the heart of Bootstrap.', links: [{ label: 'Bootstrap Grid Docs', url: 'https://getbootstrap.com/docs/5.3/layout/grid/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=irfbn103AzE', yt: true }] },
+              { id: 'bs3', name: 'Containers, Rows & Columns', desc: 'container vs container-fluid vs container-{bp}. How rows and columns interact. Gutters and nesting.', links: [{ label: 'Bootstrap Containers Docs', url: 'https://getbootstrap.com/docs/5.3/layout/containers/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=4sosXZsdy-s', yt: true }] },
+            ]
+          },
+          {
+            title: 'Core Components',
+            topics: [
+              { id: 'bs4', name: 'Typography & Colour Utilities', desc: 'Display headings, lead text, text alignment, colour utilities, and background colour helpers.', links: [{ label: 'Bootstrap Typography', url: 'https://getbootstrap.com/docs/5.3/content/typography/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=mT5siI19gtc', yt: true }] },
+              { id: 'bs5', name: 'Buttons, Badges & Alerts', desc: 'Button variants, sizes, states, outline buttons. Badge component. Alert dismissal with JavaScript.', links: [{ label: 'Bootstrap Buttons', url: 'https://getbootstrap.com/docs/5.3/components/buttons/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=qNtJ5NY3-Lg', yt: true }] },
+              { id: 'bs6', name: 'Navbar & Navigation', desc: 'Responsive navbar with collapse behaviour, brand, links, dropdowns, and search. The most-used Bootstrap component.', links: [{ label: 'Bootstrap Navbar Docs', url: 'https://getbootstrap.com/docs/5.3/components/navbar/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=7AT1X9Z41sA', yt: true }] },
+              { id: 'bs7', name: 'Cards', desc: 'Card component with header, body, footer, image top, overlays, and card groups. Extremely versatile for any content.', links: [{ label: 'Bootstrap Cards Docs', url: 'https://getbootstrap.com/docs/5.3/components/card/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=hnCmST64-IQ', yt: true }] },
+              { id: 'bs8', name: 'Forms & Validation', desc: 'Form controls, floating labels, input groups, validation states (is-valid/is-invalid), and custom validation with JS.', links: [{ label: 'Bootstrap Forms Docs', url: 'https://getbootstrap.com/docs/5.3/forms/overview/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=dU9opvB3nOU', yt: true }] },
+              { id: 'bs9', name: 'Modal, Offcanvas & Toasts', desc: 'Popup modals with triggers, offcanvas side panels, and toast notifications — all with Bootstrap JS.', links: [{ label: 'Bootstrap Modal Docs', url: 'https://getbootstrap.com/docs/5.3/components/modal/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=XH5OW46yqmE', yt: true }] },
+            ]
+          },
+          {
+            title: 'Utilities & Customisation',
+            topics: [
+              { id: 'bs10', name: 'Spacing, Display & Flex Utilities', desc: 'm-*, p-*, d-*, flex-* utility classes. How Bootstrap utilities map to CSS and when to use them vs custom CSS.', links: [{ label: 'Bootstrap Utilities', url: 'https://getbootstrap.com/docs/5.3/utilities/spacing/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=Jyvffr3aCp0', yt: true }] },
+              { id: 'bs11', name: 'Customising Bootstrap with CSS Variables', desc: 'Override Bootstrap CSS custom properties (--bs-*) without touching source files. Theming made easy.', links: [{ label: 'Bootstrap Customise Docs', url: 'https://getbootstrap.com/docs/5.3/customize/css-variables/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=gl3nFGiLa38', yt: true }] },
+              { id: 'bs12', name: 'Bootstrap Icons', desc: 'Using Bootstrap Icons library — SVG icon sprites, icon fonts, and sizing. Over 1,900 free icons.', links: [{ label: 'Bootstrap Icons', url: 'https://icons.getbootstrap.com/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=e2bTGNFVWNM', yt: true }] },
+            ]
+          },
+          {
+            title: 'Capstone Projects',
+            topics: [
+              { id: 'bs13', name: 'Capstone 1: Admin Dashboard UI', desc: 'Build a full admin dashboard with a sidebar nav, stats cards, a data table, and charts using Bootstrap 5.', links: [{ label: 'Inspiration', url: 'https://getbootstrap.com/docs/5.3/examples/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=mT5siI19gtc', yt: true }] },
+              { id: 'bs14', name: 'Capstone 2: Fully Responsive Landing Page', desc: 'Design and build a complete product landing page — hero section, features, pricing table, testimonials, and footer.', links: [{ label: 'Bootstrap Examples', url: 'https://getbootstrap.com/docs/5.3/examples/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=9cKsq14Kfsw', yt: true }] },
+            ]
+          }
+        ]
+      },
+
+      'sql': {
+        title: 'SQL from Zero to Hero',
+        meta: '5 Weeks · 18 Topics · 2 Capstone Projects',
+        sections: [
+          {
+            title: 'SQL Basics',
+            topics: [
+              { id: 'sq1', name: 'Introduction to Databases & SQL', desc: 'What is a relational database? Tables, rows, columns. Why SQL? Difference between MySQL, PostgreSQL, SQLite.', links: [{ label: 'W3Schools SQL', url: 'https://www.w3schools.com/sql/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=HXV3zeQKqGY', yt: true }] },
+              { id: 'sq2', name: 'Installing MySQL & MySQL Workbench', desc: 'Set up a local MySQL server and the Workbench GUI. Connect, create a database, and run your first query.', links: [{ label: 'MySQL Downloads', url: 'https://dev.mysql.com/downloads/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=7S_tz1z_5bA', yt: true }] },
+              { id: 'sq3', name: 'CREATE, DROP & ALTER Tables', desc: 'Defining tables with data types, primary keys, NOT NULL, DEFAULT. Modifying and deleting tables.', links: [{ label: 'W3Schools', url: 'https://www.w3schools.com/sql/sql_create_table.asp' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=qlSkKMbGRCQ', yt: true }] },
+              { id: 'sq4', name: 'INSERT, UPDATE, DELETE (CRUD)', desc: 'Adding rows, modifying existing data, and deleting records. The four fundamental operations on any table.', links: [{ label: 'W3Schools', url: 'https://www.w3schools.com/sql/sql_insert.asp' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=HXV3zeQKqGY', yt: true }] },
+            ]
+          },
+          {
+            title: 'Querying Data',
+            topics: [
+              { id: 'sq5', name: 'SELECT, WHERE & ORDER BY', desc: 'Filtering rows with WHERE, comparison operators, AND/OR/NOT, BETWEEN, IN, LIKE. Sorting results with ORDER BY.', links: [{ label: 'W3Schools', url: 'https://www.w3schools.com/sql/sql_select.asp' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=7S_tz1z_5bA', yt: true }] },
+              { id: 'sq6', name: 'Aggregate Functions & GROUP BY', desc: 'COUNT, SUM, AVG, MIN, MAX. Grouping rows with GROUP BY and filtering groups with HAVING.', links: [{ label: 'W3Schools', url: 'https://www.w3schools.com/sql/sql_groupby.asp' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=JLKZCT5KFWM', yt: true }] },
+              { id: 'sq7', name: 'JOINs: INNER, LEFT, RIGHT, FULL', desc: 'Combining data from multiple tables. Visual explanation of all join types with real examples.', links: [{ label: 'W3Schools', url: 'https://www.w3schools.com/sql/sql_join.asp' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=9yeOJ0ZMUYw', yt: true }] },
+              { id: 'sq8', name: 'Subqueries & Nested SELECTs', desc: 'Using a query result inside another query. Correlated subqueries, EXISTS, and when to use a subquery vs a JOIN.', links: [{ label: 'W3Schools', url: 'https://www.w3schools.com/sql/sql_subqueries.asp' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=nMIo_5M6LwA', yt: true }] },
+            ]
+          },
+          {
+            title: 'Database Design',
+            topics: [
+              { id: 'sq9', name: 'Primary Keys, Foreign Keys & Constraints', desc: 'Enforcing data integrity with constraints. Foreign key relationships and how they link tables together.', links: [{ label: 'W3Schools', url: 'https://www.w3schools.com/sql/sql_foreignkey.asp' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=ia-oSKe-Dpw', yt: true }] },
+              { id: 'sq10', name: 'Normalisation: 1NF, 2NF, 3NF', desc: 'Why normalisation matters. Converting an un-normalised table to 3NF step by step to eliminate redundancy.', links: [{ label: 'Article', url: 'https://www.guru99.com/database-normalization.html' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=GFQaEYEc8_8', yt: true }] },
+              { id: 'sq11', name: 'ER Diagrams', desc: 'Entity-Relationship diagrams to plan database schemas before writing code. Entities, attributes, and relationships.', links: [{ label: 'Lucidchart Guide', url: 'https://www.lucidchart.com/pages/er-diagrams' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=QpdhBUYk7Kk', yt: true }] },
+              { id: 'sq12', name: 'Indexes & Query Performance', desc: 'What an index is, types of indexes, when to create them, and how they speed up SELECT queries on large tables.', links: [{ label: 'MySQL Docs', url: 'https://dev.mysql.com/doc/refman/8.0/en/optimization-indexes.html' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=fsG1XaZEa78', yt: true }] },
+            ]
+          },
+          {
+            title: 'Advanced SQL',
+            topics: [
+              { id: 'sq13', name: 'Stored Procedures & Functions', desc: 'Writing reusable SQL blocks with stored procedures and user-defined functions. IN/OUT parameters.', links: [{ label: 'MySQL Docs', url: 'https://dev.mysql.com/doc/refman/8.0/en/stored-programs-defining.html' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=OkTx3BFkSe8', yt: true }] },
+              { id: 'sq14', name: 'Views & Triggers', desc: 'Creating virtual tables with views for simplified querying. Using triggers to automate actions on INSERT/UPDATE/DELETE.', links: [{ label: 'W3Schools', url: 'https://www.w3schools.com/sql/sql_view.asp' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=wciubfRhvtM', yt: true }] },
+            ]
+          },
+          {
+            title: 'Capstone Projects',
+            topics: [
+              { id: 'sq15', name: 'Capstone 1: Library Management System DB', desc: 'Design and build a full relational database for a library — books, members, loans, and fines. Write 20+ queries.', links: [{ label: 'Project Guide', url: 'https://www.geeksforgeeks.org/library-management-system/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=B7evUQGmN6M', yt: true }] },
+              { id: 'sq16', name: 'Capstone 2: E-commerce DB Schema', desc: 'Model a real e-commerce database — users, products, orders, order items, payments. Practice complex JOIN queries.', links: [{ label: 'Project Idea', url: 'https://www.geeksforgeeks.org/what-is-ecommerce-database/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=dtKciwk_si4', yt: true }] },
+            ]
+          }
+        ]
+      },
+
+      'git': {
+        title: 'Git & GitHub Essentials',
+        meta: '2 Weeks · 12 Topics · 1 Capstone Project',
+        sections: [
+          {
+            title: 'Git Basics',
+            topics: [
+              { id: 'gt1', name: 'What is Version Control & Why Git?', desc: 'The problem version control solves. A brief history of Git. Centralised vs distributed version control.', links: [{ label: 'Git Docs', url: 'https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=2ReR1YJrNOM', yt: true }] },
+              { id: 'gt2', name: 'Installing Git & Initial Config', desc: 'Install Git on Windows/Mac/Linux. git config --global name, email, and default editor. The .gitconfig file.', links: [{ label: 'Git Docs', url: 'https://git-scm.com/book/en/v2/Getting-Started-Installing-Git' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=8JJ101D3knE', yt: true }] },
+              { id: 'gt3', name: 'git init, add, commit', desc: 'Initialise a repo. The staging area concept. git add, git commit -m. Writing good commit messages.', links: [{ label: 'Git Docs', url: 'https://git-scm.com/docs/git-commit' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=DVRQoVRzMIY', yt: true }] },
+              { id: 'gt4', name: 'git status, log, diff', desc: 'Checking the state of your repository. Reading the commit history. Comparing working tree vs staged vs committed.', links: [{ label: 'Git Docs', url: 'https://git-scm.com/docs/git-log' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=hwP7WQkmECE', yt: true }] },
+              { id: 'gt5', name: '.gitignore', desc: 'Excluding files and folders from tracking. Patterns, global gitignore, and the gitignore.io tool.', links: [{ label: 'GitHub Docs', url: 'https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files' }, { label: 'gitignore.io', url: 'https://www.toptal.com/developers/gitignore' }] },
+            ]
+          },
+          {
+            title: 'Branching & Merging',
+            topics: [
+              { id: 'gt6', name: 'Branches: create, switch, delete', desc: 'What a branch is conceptually. git branch, git checkout, git switch. Keeping main/master clean.', links: [{ label: 'Git Docs', url: 'https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=e2IbNHi4uCI', yt: true }] },
+              { id: 'gt7', name: 'Merging & Resolving Conflicts', desc: 'git merge. Fast-forward vs 3-way merge. Reading and resolving merge conflicts manually and with a tool.', links: [{ label: 'Git Docs', url: 'https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=__cR7uPBOIk', yt: true }] },
+              { id: 'gt8', name: 'git stash & git rebase (basics)', desc: 'Temporarily shelving changes with stash. An intro to rebase — what it does, and when to use it instead of merge.', links: [{ label: 'Git Docs', url: 'https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=ElRzTuYln0M', yt: true }] },
+            ]
+          },
+          {
+            title: 'GitHub & Collaboration',
+            topics: [
+              { id: 'gt9', name: 'GitHub: Repos, Clone, Push, Pull', desc: 'Create a GitHub repo. git remote, git clone, git push, git pull, git fetch. SSH keys setup.', links: [{ label: 'GitHub Docs', url: 'https://docs.github.com/en/get-started/using-git/about-remote-repositories' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=nhNq2kIvi9s', yt: true }] },
+              { id: 'gt10', name: 'Forking & Pull Requests', desc: 'Fork a repo, make changes on a branch, open a Pull Request. The standard open-source contribution workflow.', links: [{ label: 'GitHub Docs', url: 'https://docs.github.com/en/pull-requests' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=For9VtrQx58', yt: true }] },
+              { id: 'gt11', name: 'GitHub Issues & Project Boards', desc: 'Using GitHub Issues to track bugs and features. Linking commits and PRs to issues. Project kanban boards.', links: [{ label: 'GitHub Docs', url: 'https://docs.github.com/en/issues' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=TKJ4RdhyB5Y', yt: true }] },
+            ]
+          },
+          {
+            title: 'Capstone Project',
+            topics: [
+              { id: 'gt12', name: 'Capstone: Publish your Portfolio on GitHub Pages', desc: 'Take your HTML/CSS portfolio, push it to a GitHub repo, enable GitHub Pages, and share the live URL.', links: [{ label: 'GitHub Pages Docs', url: 'https://docs.github.com/en/pages/getting-started-with-github-pages' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=8hrJ4oN1u_8', yt: true }] },
+            ]
+          }
+        ]
+      },
+
+      'cli': {
+        title: 'Command Line & Linux',
+        meta: '2 Weeks · 10 Topics · 1 Capstone Project',
+        sections: [
+          {
+            title: 'CLI Fundamentals',
+            topics: [
+              { id: 'cl1', name: 'What is the Terminal & Shell?', desc: 'Terminal vs shell vs command line. bash vs zsh. Why developers use the CLI daily.', links: [{ label: 'Article', url: 'https://www.freecodecamp.org/news/command-line-for-beginners/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=oxuRxtrO2Ag', yt: true }] },
+              { id: 'cl2', name: 'Navigating the File System', desc: 'pwd, ls, cd, mkdir, rmdir, tree. Absolute vs relative paths. Home directory and the ~ shortcut.', links: [{ label: 'Article', url: 'https://linuxcommand.org/lc3_learning_the_shell.php' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=s3ii48qYBxA', yt: true }] },
+              { id: 'cl3', name: 'File Operations: create, copy, move, delete', desc: 'touch, cat, cp, mv, rm, rm -r. Read files with less/head/tail. Wildcards and glob patterns.', links: [{ label: 'Article', url: 'https://www.hostinger.com/tutorials/linux-commands' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=IVquJh3DXUA', yt: true }] },
+              { id: 'cl4', name: 'Searching: find, grep, locate', desc: 'Find files by name or content. grep patterns, recursive search, piping grep with other commands.', links: [{ label: 'Article', url: 'https://www.freecodecamp.org/news/how-to-search-files-in-the-linux-terminal/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=Tc_jntovCM0', yt: true }] },
+            ]
+          },
+          {
+            title: 'Shell & Scripting',
+            topics: [
+              { id: 'cl5', name: 'Redirection, Pipes & stdin/stdout', desc: '>, >>, <, and the | pipe operator. Chaining commands together. /dev/null. Practical pipeline examples.', links: [{ label: 'Article', url: 'https://www.digitalocean.com/community/tutorials/an-introduction-to-linux-i-o-redirection' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=mV_8GbzwZMM', yt: true }] },
+              { id: 'cl6', name: 'Permissions: chmod, chown, sudo', desc: 'Unix file permissions (rwxr-xr-x). Numeric mode (755, 644). sudo vs root. chown for ownership.', links: [{ label: 'Article', url: 'https://linuxcommand.org/lc3_lts0090.php' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=4e669hSjaX8', yt: true }] },
+              { id: 'cl7', name: 'Environment Variables & PATH', desc: 'What environment variables are. Setting and exporting variables. Understanding PATH and how commands are found.', links: [{ label: 'Article', url: 'https://www.digitalocean.com/community/tutorials/how-to-read-and-set-environmental-and-shell-variables-on-linux' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=cg5FX9RLvXs', yt: true }] },
+              { id: 'cl8', name: 'Writing Bash Scripts', desc: '#!/bin/bash shebang. Variables, conditionals, loops, and functions in bash. chmod +x and running scripts.', links: [{ label: 'Article', url: 'https://www.freecodecamp.org/news/bash-scripting-tutorial-linux-shell-script-and-command-line-for-beginners/' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=tK9Oc6AEnR4', yt: true }] },
+            ]
+          },
+          {
+            title: 'Networking & Remote',
+            topics: [
+              { id: 'cl9', name: 'SSH: Connect to Remote Servers', desc: 'What SSH is, generating keys with ssh-keygen, connecting with ssh user@host. SCP to transfer files.', links: [{ label: 'Article', url: 'https://www.digitalocean.com/community/tutorials/how-to-use-ssh-to-connect-to-a-remote-server' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=v45p_kJV9i4', yt: true }] },
+            ]
+          },
+          {
+            title: 'Capstone Project',
+            topics: [
+              { id: 'cl10', name: 'Capstone: Automated Backup Bash Script', desc: 'Write a bash script that backs up a folder to a timestamped archive, logs the result, and runs on a cron schedule.', links: [{ label: 'Cron Tutorial', url: 'https://www.hostinger.com/tutorials/cron-job' }, { label: 'YouTube', url: 'https://www.youtube.com/watch?v=v952m13p-b4', yt: true }] },
+            ]
+          }
+        ]
+      }
+
+    };
+
+    // ══════════════════════════════════════
+    // DRAWER LOGIC
+    // ══════════════════════════════════════
+    let currentPathId = null;
+
+    function openDrawer(id) {
+      currentPathId = id;
+      const path = PATHS[id];
+      if (!path) return;
+
+      document.getElementById('drawerTitle').textContent = path.title;
+      document.getElementById('drawerMeta').textContent = path.meta;
+
+      renderDrawer(id);
+
+      document.getElementById('drawerOverlay').classList.add('open');
+      document.getElementById('pathDrawer').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawerOverlay').classList.remove('open');
+      document.getElementById('pathDrawer').classList.remove('open');
+      document.body.style.overflow = '';
+      currentPathId = null;
+    }
+
+    function renderDrawer(id) {
+      const path = PATHS[id];
+      const saved = getSaved(id);
+
+      // count total topics
+      let total = 0;
+      path.sections.forEach(s => total += s.topics.length);
+      const done = saved.length;
+      const pct = total ? Math.round((done / total) * 100) : 0;
+
+      document.getElementById('drawerPct').textContent = `${done} / ${total} topics`;
+      document.getElementById('drawerBar').style.width = pct + '%';
+
+      let html = '';
+      path.sections.forEach(section => {
+        html += `<div class="topic-section">
+      <div class="topic-section-title">${section.title}</div>`;
+        section.topics.forEach(topic => {
+          const isDone = saved.includes(topic.id);
+          const linksHtml = topic.links.map(l =>
+            `<a href="${l.url}" target="_blank" rel="noopener" class="topic-link ${l.yt ? 'topic-link-yt' : ''}">
+          <i class="fas fa-${l.yt ? 'play' : 'external-link-alt'}" style="font-size:.6rem;"></i>${l.label}
+        </a>`
+          ).join('');
+          html += `<div class="topic-item ${isDone ? 'done' : ''}" id="item-${topic.id}">
+        <div class="topic-check" onclick="toggleTopic('${id}','${topic.id}')">
+          <i class="fas fa-check"></i>
+        </div>
+        <div class="topic-info">
+          <div class="topic-name">${topic.name}</div>
+          <div class="topic-desc">${topic.desc}</div>
+          <div class="topic-links">${linksHtml}</div>
+        </div>
+      </div>`;
+        });
+        html += `</div>`;
+      });
+
+      document.getElementById('drawerBody').innerHTML = html;
+      updateCardProgress(id, done, total);
+    }
+
+    function toggleTopic(pathId, topicId) {
+      const saved = getSaved(pathId);
+      const idx = saved.indexOf(topicId);
+      if (idx === -1) saved.push(topicId);
+      else saved.splice(idx, 1);
+      setSaved(pathId, saved);
+
+      // update item UI
+      const item = document.getElementById('item-' + topicId);
+      if (item) item.classList.toggle('done', saved.includes(topicId));
+
+      // update drawer progress
+      const path = PATHS[pathId];
+      let total = 0;
+      path.sections.forEach(s => total += s.topics.length);
+      const done = saved.length;
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      document.getElementById('drawerPct').textContent = `${done} / ${total} topics`;
+      document.getElementById('drawerBar').style.width = pct + '%';
+
+      updateCardProgress(pathId, done, total);
+    }
+
+    function updateCardProgress(pathId, done, total) {
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      document.querySelectorAll(`.path-progress-bar-fill[data-id="${pathId}"]`).forEach(el => el.style.width = pct + '%');
+      document.querySelectorAll(`.pct-label[data-id="${pathId}"]`).forEach(el => el.textContent = pct + '%');
+    }
+
+    function resetProgress() {
+      if (!currentPathId) return;
+      if (!confirm('Reset all progress for this path?')) return;
+      setSaved(currentPathId, []);
+      renderDrawer(currentPathId);
+    }
+
+    function getSaved(pathId) {
+      try { return JSON.parse(localStorage.getItem('cp-path-' + pathId) || '[]'); } catch (e) { return []; }
+    }
+    function setSaved(pathId, arr) {
+      localStorage.setItem('cp-path-' + pathId, JSON.stringify(arr));
+    }
+
+    // Restore progress on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      Object.keys(PATHS).forEach(id => {
+        const saved = getSaved(id);
+        const path = PATHS[id];
+        let total = 0;
+        path.sections.forEach(s => total += s.topics.length);
+        updateCardProgress(id, saved.length, total);
+      });
+
+      // Handle incoming search from other pages
+      const urlParams = new URLSearchParams(window.location.search);
+      const searchVal = urlParams.get('search');
+      if (searchVal) {
+        const input = document.getElementById('searchInput');
+        if (input) {
+          input.value = searchVal;
+          applyFilters();
+        }
+      }
+    });
+
+    // Close drawer on Escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+
+    /* ═══════════════════════════════════════
+       FILTER + SEARCH LOGIC
+    ═══════════════════════════════════════ */
+    let activeFilter = 'all';
+
+    function applyFilters() {
+      const q = document.getElementById('searchInput').value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      // Filter groups
+      document.querySelectorAll('.path-group').forEach(group => {
+        const cat = group.dataset.category;
+        const catOk = (activeFilter === 'all' || cat === activeFilter);
+        let groupVisible = false;
+
+        // Filter cards within group
+        group.querySelectorAll('.col-lg-4').forEach(col => {
+          const title = col.querySelector('.path-title').textContent.toLowerCase();
+          const desc = col.querySelector('.path-desc').textContent.toLowerCase();
+          const badge = col.querySelector('.path-badge').textContent.toLowerCase();
+          const topics = col.querySelector('.path-topics').textContent.toLowerCase();
+
+          const searchOk = !q || title.includes(q) || desc.includes(q) || badge.includes(q) || topics.includes(q);
+
+          if (catOk && searchOk) {
+            col.style.display = '';
+            groupVisible = true;
+            visibleCount++;
+          } else {
+            col.style.display = 'none';
+          }
+        });
+
+        // Show/hide group header based on card visibility
+        group.style.display = groupVisible ? '' : 'none';
+      });
+
+      // Show/hide no results message
+      document.getElementById('noResults').style.display = (visibleCount === 0) ? 'block' : 'none';
+    }
+
+    // Category buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        activeFilter = this.dataset.filter;
+        applyFilters();
+      });
+    });
+
+    // Search input
+    document.getElementById('searchInput').addEventListener('input', applyFilters);
+  </script>
+</body>
+
+</html>
